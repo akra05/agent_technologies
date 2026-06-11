@@ -1,0 +1,10 @@
+[
+  {
+    "iteration": 0,
+    "avg_score": 0.5074,
+    "total_food": 2805,
+    "best_size": 78,
+    "time_s": 50.3,
+    "status": "improved"
+  }
+]

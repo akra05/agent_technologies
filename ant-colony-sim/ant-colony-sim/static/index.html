@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ant-colony-sim</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--primary:oklch(55% 0.18 230);--success:oklch(65% 0.2 145);--warning:oklch(75% 0.18 85);--error:oklch(55% 0.22 25);--bg:#000;--bgr:#0a0a0f;--bgs:#030306;--bd:rgba(255,255,255,0.12);--sel:color-mix(in oklch,oklch(55% 0.18 230) 30%,transparent);--fg:rgba(255,255,255,0.92);--dim:rgba(255,255,255,0.5);--mut:rgba(255,255,255,0.3);--fm:'IBM Plex Mono',ui-monospace,'SF Mono',Consolas,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--fg);font-family:var(--fm);font-size:12px;line-height:1.4;overflow:hidden}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12)}
+::selection{background:var(--sel)}
+.app{display:flex;flex-direction:column;height:100vh}
+.hdr{display:flex;align-items:center;gap:12px;padding:6px 16px;border-bottom:1px solid var(--bd);flex-shrink:0}
+.hdr .logo{color:var(--primary);font-size:16px;font-weight:500}.hdr .logo::before{content:"$ ";color:var(--success)}
+.tabs{display:flex;border-bottom:1px solid var(--bd);flex-shrink:0}
+.tab{padding:8px 16px;color:var(--dim);background:0;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;font-family:var(--fm);font-size:11px;transition:all 100ms linear}
+.tab:hover{color:var(--fg)}.tab.on{color:var(--primary);border-bottom-color:var(--primary)}.tab.on::before{content:"> "}
+.panels{flex:1;overflow:hidden;position:relative}
+.pnl{display:none;height:100%;overflow-y:auto;padding:12px 16px}.pnl.on{display:flex;flex-direction:column}
+.btn{font-family:var(--fm);font-size:12px;font-weight:500;padding:4px 10px;background:0;color:var(--fg);border:1px solid var(--bd);border-radius:0;cursor:pointer;transition:all 100ms linear;white-space:nowrap}
+.btn::before{content:"[ ";color:var(--mut)}.btn::after{content:" ]";color:var(--mut)}
+.btn:hover{border-color:var(--primary);color:var(--primary)}.btn:hover::before,.btn:hover::after{color:var(--primary)}
+.btn:active{background:var(--primary);color:var(--bg)}
+.btn-p{background:var(--primary);color:var(--bg);border-color:var(--primary)}.btn-p::before,.btn-p::after{color:var(--bg)}
+.btn-s{font-size:10px;padding:2px 8px}
+.inp{width:100%;font-family:var(--fm);font-size:12px;color:var(--fg);background:var(--bgs);border:1px solid var(--bd);border-radius:0;padding:6px 10px;caret-color:var(--primary);transition:border-color 100ms linear}
+.inp:focus{outline:none;border-color:var(--primary);background:#000}
+textarea.inp{resize:vertical;min-height:80px}
+.card{background:var(--bgr);border:1px solid var(--bd);padding:12px;margin-bottom:8px}
+.card-t{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px solid var(--bd)}.card-t::before{content:"## ";color:var(--mut)}
+.g-ok{color:var(--success)}.g-err{color:var(--error)}.g-pen{color:var(--warning)}.g-off{color:var(--mut)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+/* P1 */
+.p1-layout{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;min-height:0;overflow:hidden}
+.p1-left{display:flex;flex-direction:column;overflow:hidden;gap:8px}
+.p1-right{display:flex;flex-direction:column;overflow:hidden}
+.cfg-ed{flex:1;font-family:var(--fm);font-size:10px;background:var(--bgs);border:1px solid var(--bd);color:var(--fg);padding:8px;overflow:auto;white-space:pre;tab-size:2;line-height:1.5;resize:none}
+.cfg-ed:focus{outline:none;border-color:var(--primary)}
+.val-bar{display:flex;align-items:center;gap:8px;padding:4px 8px;border:1px solid var(--bd);background:var(--bgr);font-size:11px}
+.grid-cv-wrap{flex:1;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--bgs);border:1px solid var(--bd)}
+.q-item{display:flex;justify-content:space-between;padding:3px 6px;border-bottom:1px solid var(--bd);font-size:10px}.q-item:hover{background:var(--sel)}
+.file-drop{border:1px dashed var(--bd);padding:12px;text-align:center;color:var(--mut);font-size:11px;cursor:pointer}.file-drop:hover{border-color:var(--primary);color:var(--fg)}.file-drop input{display:none}
+
+/* P2 */
+.p2-layout{display:flex;flex:1;overflow:hidden;min-height:0}
+.p2-side{width:200px;border-right:1px solid var(--bd);overflow-y:auto;padding:8px;flex-shrink:0}
+.p2-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.p2-cv-area{flex:1;display:flex;overflow:hidden;position:relative}
+.p2-cv-wrap{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--bgs);cursor:grab}
+.p2-cv-wrap.panning{cursor:grabbing}
+.p2-cv-inner{transform-origin:center center;will-change:transform}
+/* tile info panel */
+.tile-info{width:220px;border-left:1px solid var(--bd);overflow-y:auto;padding:8px;font-size:10px;background:var(--bgr);flex-shrink:0;display:none}
+.tile-info.on{display:block}
+.ti-drag{width:4px;cursor:col-resize;background:transparent;flex-shrink:0;display:none;transition:background 100ms}
+.ti-drag:hover,.ti-drag.dragging{background:var(--primary)}.tile-info.on~.x{}.ti-drag.on{display:block}
+.tile-info .ti-hdr{font-size:11px;color:var(--primary);margin-bottom:6px;border-bottom:1px solid var(--bd);padding-bottom:4px}
+.tile-info .ti-row{display:flex;justify-content:space-between;padding:2px 0;color:var(--dim)}.tile-info .ti-row span{color:var(--fg)}
+.tile-info .ti-section{margin-top:8px;padding-top:6px;border-top:1px solid var(--bd);color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.p2-stats{display:flex;gap:12px;padding:6px 12px;border-top:1px solid var(--bd);font-size:10px;color:var(--dim);flex-wrap:wrap;flex-shrink:0}.p2-stats span{color:var(--fg)}
+.p2-ctrl{display:flex;align-items:center;gap:8px;padding:6px 12px;border-top:1px solid var(--bd);background:var(--bgr);flex-shrink:0;flex-wrap:wrap}
+.scrub{flex:1;min-width:80px;height:3px;-webkit-appearance:none;appearance:none;background:rgba(255,255,255,0.08);outline:none;cursor:pointer}
+.scrub::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;background:var(--primary);border:none}
+.spd-slider{width:100px;height:3px;-webkit-appearance:none;appearance:none;background:rgba(255,255,255,0.08);outline:none;cursor:pointer}
+.spd-slider::-webkit-slider-thumb{-webkit-appearance:none;width:8px;height:8px;background:var(--warning);border:none}
+.lib-item{padding:5px 6px;border:1px solid var(--bd);margin-bottom:3px;cursor:pointer;font-size:10px;transition:all 100ms linear}
+.lib-item:hover{border-color:var(--primary);background:var(--sel)}
+.lib-item.on{border-left:2px solid var(--primary);padding-left:4px}
+.lib-item .nm{color:var(--fg);display:block;margin-bottom:1px;word-break:break-all}.lib-item .mt{color:var(--mut)}
+
+/* P3 */
+.p3-layout{display:grid;grid-template-columns:260px 1fr;gap:12px;flex:1;min-height:0;overflow:hidden}
+.p3-side{overflow-y:auto}.p3-main{display:flex;flex-direction:column;overflow:hidden}
+.plot-box{flex:1;display:flex;align-items:center;justify-content:center;background:var(--bgs);border:1px solid var(--bd);overflow:hidden}
+.plot-box img{max-width:100%;max-height:100%;object-fit:contain}
+.formula-wrap{position:relative;min-height:120px;border:1px solid var(--bd);background:var(--bgs);resize:both;overflow:hidden}
+.formula-hl{position:absolute;top:0;left:0;right:0;bottom:0;padding:8px;font-family:var(--fm);font-size:10px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;overflow:auto;pointer-events:none;color:var(--fg)}
+.formula-ed{position:relative;z-index:1;width:100%;height:100%;font-family:var(--fm);font-size:10px;line-height:1.5;background:transparent;color:transparent;caret-color:var(--fg);border:none;padding:8px;resize:none;outline:none}
+.formula-ed::selection{background:var(--sel);color:transparent}
+.hl-kw{color:oklch(65% 0.2 280)}.hl-str{color:var(--warning)}.hl-num{color:var(--success)}.hl-cm{color:var(--mut);font-style:italic}.hl-bi{color:oklch(65% 0.18 190)}.hl-fn{color:oklch(70% 0.15 60)}
+.block-row{display:flex;align-items:center;gap:6px;padding:2px 0;font-size:10px;cursor:pointer}.block-row:hover{color:var(--fg)}.block-row input{accent-color:oklch(55% 0.18 230)}
+/* multi-select checkboxes */
+.sim-check{display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:10px;cursor:pointer;border-bottom:1px solid var(--bd)}
+.sim-check:hover{background:var(--sel)}
+.sim-check input{accent-color:oklch(55% 0.18 230)}
+
+/* modal */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;display:none;align-items:center;justify-content:center}.modal-ov.on{display:flex}
+.modal{background:var(--bg);border:1px solid var(--primary);min-width:420px;max-width:90vw;max-height:80vh;overflow-y:auto;font-family:var(--fm)}
+.modal-hdr{padding:6px 12px;background:var(--primary);color:var(--bg);font-size:11px;font-weight:500;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0}
+.modal-hdr .x{cursor:pointer;font-size:14px}
+.modal-body{padding:16px;font-size:12px}
+.modal-ft{padding:8px 12px;border-top:1px solid var(--bd);display:flex;gap:8px;justify-content:flex-end}
+.field{margin-bottom:10px}.field label{display:block;font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+
+/* status bar */
+.sbar{position:fixed;bottom:0;left:0;right:0;height:20px;background:var(--bgr);border-top:1px solid var(--bd);font-size:10px;color:var(--dim);display:flex;align-items:center;padding:0 12px;gap:12px;z-index:100}
+.sbar .s+.s::before{content:"│";color:var(--bd);margin-right:12px}
+
+/* toast */
+.toast-c{position:fixed;top:12px;right:12px;z-index:1100;display:flex;flex-direction:column;gap:6px}
+.toast{font-family:var(--fm);font-size:11px;background:var(--bg);border:1px solid var(--bd);border-left:3px solid var(--primary);padding:6px 10px;color:var(--fg);min-width:200px;animation:ti 200ms linear}
+.toast.err{border-left-color:var(--error)}.toast.ok{border-left-color:var(--success)}
+.toast-tt{font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;color:var(--primary)}.toast.err .toast-tt{color:var(--error)}.toast.ok .toast-tt{color:var(--success)}
+@keyframes ti{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+/* docs table */
+.docs-tbl{width:100%;font-size:10px;border-collapse:collapse;margin-top:8px}
+.docs-tbl th{text-align:left;color:var(--dim);text-transform:uppercase;letter-spacing:1px;padding:4px 6px;border-bottom:1px solid var(--bd);font-weight:500}
+.docs-tbl td{padding:4px 6px;border-bottom:1px solid var(--bd);color:var(--fg)}
+.docs-tbl td:first-child{color:var(--primary);font-weight:500}
+.docs-tbl tr:hover td{background:var(--sel)}
+
+@media(max-width:960px){.p1-layout,.p3-layout{grid-template-columns:1fr}.tile-info{position:absolute;right:0;top:0;bottom:0;z-index:10}}
+@media(max-width:640px){.p2-side{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hdr">
+    <div class="logo">ant-colony-sim</div>
+    <span style="color:var(--mut);font-size:10px">v3.0</span>
+    <span style="flex:1"></span>
+    <span id="hdrSt" style="font-size:10px">○ idle</span>
+  </div>
+  <div class="tabs">
+    <button class="tab on" data-p="p1">config & queue</button>
+    <button class="tab" data-p="p2">viewer & library</button>
+    <button class="tab" data-p="p3">analysis & export</button>
+  </div>
+  <div class="panels">
+
+<!-- ══════════ P1: CONFIG ══════════ -->
+<div class="pnl on" id="p1">
+  <div class="p1-layout">
+    <div class="p1-left">
+      <div class="card-t">config.json</div>
+      <textarea id="cfgEd" class="cfg-ed" spellcheck="false"></textarea>
+      <div class="val-bar"><span class="g-off" id="valG">○</span><span id="valMsg" style="flex:1">edit config or load default</span></div>
+      <div class="row" style="margin-top:4px">
+        <button class="btn btn-p" onclick="startSim()">run</button>
+        <button class="btn" onclick="validateCfg()">validate</button>
+        <button class="btn" onclick="openModal('batchMod')">batch</button>
+        <button class="btn" onclick="loadDefault()">default</button>
+      </div>
+      <div class="card">
+        <div class="card-t">agent .py</div>
+        <div class="file-drop" id="agDrop" onclick="document.getElementById('agFile').click()">drop agent.py here or click<input type="file" id="agFile" accept=".py" onchange="uploadAgent(event)"></div>
+        <div id="agSt" style="font-size:10px;color:var(--mut);margin-top:4px">using default PheromoneFollowerAgent</div>
+      </div>
+      <div class="card">
+        <div class="card-t">queue</div>
+        <div id="qList" style="max-height:120px;overflow-y:auto"><div style="color:var(--mut);font-size:10px;padding:3px">empty</div></div>
+      </div>
+    </div>
+    <div class="p1-right">
+      <div class="card-t">grid preview</div>
+      <div class="grid-cv-wrap"><canvas id="gridCv" width="400" height="400"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ P2: VIEWER ══════════ -->
+<div class="pnl" id="p2">
+  <div class="p2-layout">
+    <div class="p2-side">
+      <div class="card-t">library</div>
+      <input class="inp" style="margin:6px 0;font-size:10px" placeholder="search..." id="libQ" oninput="filterLib()">
+      <div id="libList"></div>
+    </div>
+    <div class="p2-main">
+      <div class="p2-cv-area">
+        <div class="p2-cv-wrap" id="cvWrap"><div class="p2-cv-inner" id="cvInner"><canvas id="simCv" width="600" height="600"></canvas></div></div>
+        <div class="ti-drag" id="tiDrag"></div>
+        <div class="tile-info" id="tileInfo">
+          <div class="ti-hdr" id="tiHdr">click a tile</div>
+          <div id="tiBody"></div>
+        </div>
+      </div>
+      <div class="p2-stats" id="viewStats">
+        <div>tick: <span id="sTick">-</span></div>
+        <div>alive: <span id="sAlive">-</span></div>
+        <div>dead: <span id="sDead">-</span></div>
+        <div>food left: <span id="sFood">-</span></div>
+        <div>nest food: <span id="sNest">-</span></div>
+        <div>pheromone cells: <span id="sPhero">-</span></div>
+      </div>
+      <div class="p2-ctrl">
+        <button class="btn btn-s" id="playBtn" onclick="togglePlay()">▶ play</button>
+        <input type="range" class="scrub" id="scrub" min="0" max="0" value="0" oninput="scrubTo(+this.value)">
+        <span style="font-size:10px;color:var(--dim);min-width:70px" id="tickLbl">- / -</span>
+        <span style="font-size:10px;color:var(--mut)">speed:</span>
+        <input type="range" class="spd-slider" id="spdSlider" min="0" max="10" step="0.5" value="1" oninput="onSpdChange(this)">
+        <span style="font-size:10px;color:var(--warning);min-width:32px" id="spdLbl">1.00x</span>
+        <select class="inp" style="width:auto;font-size:10px;padding:2px 6px" id="followSel" onchange="onFollowChange()">
+          <option value="">follow: off</option>
+        </select>
+        <button class="btn btn-s" onclick="vpAdjZoom(1.25)">+</button><button class="btn btn-s" onclick="vpAdjZoom(0.8)">−</button><button class="btn btn-s" onclick="vpReset()" title="reset zoom/pan">⊙</button><button class="btn btn-s" onclick="toggleTileInfo()">inspect</button>
+        <button class="btn btn-s" onclick="screenshot()">screenshot</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ P3: ANALYSIS ══════════ -->
+<div class="pnl" id="p3">
+  <div class="p3-layout">
+    <div class="p3-side">
+      <div class="card">
+        <div class="card-t">simulations</div>
+        <div id="aSimList" style="max-height:150px;overflow-y:auto"></div>
+      </div>
+      <div class="card">
+        <div class="card-t">single-sim plots</div>
+        <p style="color:var(--mut);font-size:10px;margin-bottom:6px">select 1 sim above</p>
+        <button class="btn btn-s" style="width:100%;margin-bottom:3px" onclick="runPlot('food_time')">food / time</button>
+        <button class="btn btn-s" style="width:100%;margin-bottom:3px" onclick="runPlot('alive_time')">alive / time</button>
+        <button class="btn btn-s" style="width:100%;margin-bottom:3px" onclick="runPlot('steps_food')">steps-to-food</button>
+        <button class="btn btn-s" style="width:100%;margin-bottom:3px" onclick="runPlot('batch_scores')">batch scores</button>
+      </div>
+      <div class="card">
+        <div class="card-t">compare experiments</div>
+        <p style="color:var(--mut);font-size:10px;margin-bottom:6px">select 2+ sims, overlay in one graph</p>
+        <div class="row" style="margin-bottom:3px">
+          <button class="btn btn-s" style="flex:1" onclick="compareSims('food')">food</button>
+          <button class="btn btn-s" style="flex:1" onclick="compareSims('alive')">alive</button>
+          <button class="btn btn-s" style="flex:1" onclick="compareSims('steps')">steps</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t">formula builder</div>
+        <p style="color:var(--mut);font-size:10px;margin-bottom:6px">check blocks → append to editor</p>
+        <div id="blocks" style="margin-bottom:8px">
+          <label class="block-row"><input type="checkbox" data-block="xaxis"> x-axis: ticks (from snapshots)</label>
+          <label class="block-row"><input type="checkbox" data-block="food"> y: food collected total</label>
+          <label class="block-row"><input type="checkbox" data-block="alive"> y: alive agents</label>
+          <label class="block-row"><input type="checkbox" data-block="steps"> y: avg steps to food</label>
+          <label class="block-row"><input type="checkbox" data-block="deaths"> y: death count</label>
+          <label class="block-row"><input type="checkbox" data-block="hist_trips"> histogram: trip step counts</label>
+          <label class="block-row"><input type="checkbox" data-block="hist_energy"> histogram: agent energy (last tick)</label>
+          <label class="block-row"><input type="checkbox" data-block="scatter_trips"> scatter: trip find vs return</label>
+        </div>
+        <div class="row" style="margin-bottom:6px">
+          <input class="inp" style="font-size:10px;flex:1" id="blockTitle" placeholder="plot title (optional)">
+          <button class="btn btn-s" onclick="buildFormula()">build</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t">custom formula <span style="float:right;cursor:pointer;color:var(--primary)" onclick="openModal('docsMod')">? docs</span></div>
+        <div class="formula-wrap" id="frmWrap">
+          <div class="formula-hl" id="frmHl"></div>
+          <textarea class="formula-ed" id="frmEd" oninput="hlFormula()" onscroll="syncFrmScroll()" placeholder="# click ? docs for scope reference" spellcheck="false"></textarea>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <button class="btn btn-s btn-p" style="flex:1" onclick="runCustom()">run</button>
+          <button class="btn btn-s" onclick="document.getElementById('frmEd').value='';hlFormula()">clear</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t">export</div>
+        <button class="btn btn-s" style="width:100%;margin-bottom:3px" onclick="dlSim()">download .sim.zip</button>
+        <div class="file-drop" style="padding:6px" onclick="document.getElementById('upZip').click()">upload .sim.zip<input type="file" id="upZip" accept=".zip" onchange="upSim(event)"></div>
+      </div>
+    </div>
+    <div class="p3-main">
+      <div class="plot-box" id="plotBox"><span style="color:var(--mut)">select sims and a plot type</span></div>
+      <div style="padding:6px 12px;display:flex;gap:8px;border-top:1px solid var(--bd)">
+        <button class="btn btn-s" onclick="expPng()">export PNG</button>
+        <button class="btn btn-s" onclick="expSvg()">export SVG</button>
+        <button class="btn btn-s" onclick="expCsv()">export CSV</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+  <div class="sbar">
+    <span class="s" id="sbSt">○ idle</span>
+    <span class="s" id="sbQ">queue: 0</span>
+    <span class="s" id="sbT"></span>
+  </div>
+</div>
+
+<!-- ═══ BATCH MODAL ═══ -->
+<div class="modal-ov" id="batchMod">
+  <div class="modal">
+    <div class="modal-hdr"><span>## BATCH CONFIG</span><span class="x" onclick="closeModal('batchMod')">✕</span></div>
+    <div class="modal-body">
+      <p style="color:var(--dim);font-size:11px;margin-bottom:12px">Generates N configs by sweeping one parameter across a range. Each config queued as a playlist. Base config from editor.</p>
+      <div class="field"><label>parameter (dot path)</label><input class="inp" id="bParam" value="agents.count"></div>
+      <div class="row" style="gap:12px;margin-bottom:10px">
+        <div class="field" style="flex:1"><label>start</label><input class="inp" id="bStart" type="number" value="1"></div>
+        <div class="field" style="flex:1"><label>end</label><input class="inp" id="bEnd" type="number" value="39"></div>
+        <div class="field" style="flex:1"><label>step</label><input class="inp" id="bStep" type="number" value="1"></div>
+      </div>
+      <div id="bPreview" style="font-size:10px;color:var(--dim);padding:6px;border:1px solid var(--bd);background:var(--bgs)"></div>
+    </div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('batchMod')">cancel</button><button class="btn btn-p" onclick="runBatch()">queue batch</button></div>
+  </div>
+</div>
+
+<!-- ═══ FORMULA DOCS MODAL ═══ -->
+<div class="modal-ov" id="docsMod">
+  <div class="modal" style="min-width:520px">
+    <div class="modal-hdr"><span>## FORMULA SCOPE REFERENCE</span><span class="x" onclick="closeModal('docsMod')">✕</span></div>
+    <div class="modal-body">
+      <p style="color:var(--dim);font-size:11px;margin-bottom:8px">Variables injected into the formula execution scope. Write matplotlib code using <code style="color:var(--primary)">ax</code> (pre-created Axes).</p>
+      <table class="docs-tbl">
+        <tr><th>variable</th><th>type</th><th>description</th></tr>
+        <tr><td>ax</td><td>matplotlib.Axes</td><td>pre-created axes — plot directly on it</td></tr>
+        <tr><td>fig</td><td>matplotlib.Figure</td><td>figure object (10x5, dark bg)</td></tr>
+        <tr><td>plt</td><td>matplotlib.pyplot</td><td>full pyplot module</td></tr>
+        <tr><td>np</td><td>numpy</td><td>numpy module</td></tr>
+        <tr><td>metrics</td><td>dict</td><td>SimulationMetrics of <em>first</em> selected sim</td></tr>
+        <tr><td>ticks</td><td>list[dict]</td><td>all TickState dicts of first selected sim</td></tr>
+        <tr><td>config</td><td>dict</td><td>simulation config JSON of first selected sim</td></tr>
+        <tr><td>all_metrics</td><td>list[dict]</td><td>all selected sims — each has <code style="color:var(--primary)">.metrics</code>, <code style="color:var(--primary)">.ticks</code>, <code style="color:var(--primary)">.config</code></td></tr>
+      </table>
+      <p style="color:var(--dim);font-size:11px;margin:10px 0 4px">multi-sim access via <code style="color:var(--primary)">contexts</code>:</p>
+      <div style="background:var(--bgs);border:1px solid var(--bd);padding:8px;font-size:10px;color:var(--fg);margin-bottom:8px"><span style="color:var(--mut)"># compare food collected across N sims</span><br>
+for ctx in all_metrics:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;snaps = ctx['snapshots']<br>
+&nbsp;&nbsp;&nbsp;&nbsp;t = [s['tick'] for s in snaps]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;food = [s['food_collected_total'] for s in snaps]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;label = ctx.get('name', '?')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ax.plot(t, food, label=label)<br>
+ax.legend(); ax.set_title('Food collected — all sims')</div>
+      <p style="color:var(--dim);font-size:11px;margin:4px 0 4px">metrics keys:</p>
+      <table class="docs-tbl">
+        <tr><th>key</th><th>type</th></tr>
+        <tr><td>total_ticks</td><td>int</td></tr>
+        <tr><td>total_ants</td><td>int</td></tr>
+        <tr><td>food_collected_total</td><td>int</td></tr>
+        <tr><td>food_per_ant</td><td>float</td></tr>
+        <tr><td>avg_steps_to_food</td><td>float</td></tr>
+        <tr><td>alive_ants / dead_ants</td><td>int</td></tr>
+        <tr><td>death_ratio</td><td>float</td></tr>
+        <tr><td>trips</td><td>list[{agent_id, t_leave_nest, t_find_food, t_return_nest, steps_to_food}]</td></tr>
+        <tr><td>snapshots</td><td>list[{tick, food_collected_total, alive_count, dead_count, avg_steps_to_food}]</td></tr>
+      </table>
+      <p style="color:var(--dim);font-size:11px;margin:10px 0 4px">ticks[n] keys (TickState):</p>
+      <table class="docs-tbl">
+        <tr><th>key</th><th>type / notes</th></tr>
+        <tr><td>tick</td><td>int</td></tr>
+        <tr><td>agents</td><td>list[{id, x, y, alive, carries, energy}]</td></tr>
+        <tr><td>food_sources</td><td>list[{x, y, amount}]</td></tr>
+        <tr><td>pheromones</td><td>list[{x, y, food, nest}]</td></tr>
+        <tr><td>nest_food_total</td><td>int — food delivered to nest</td></tr>
+        <tr><td>alive_count / dead_count</td><td>int</td></tr>
+      </table>
+      <p style="color:var(--dim);font-size:11px;margin:12px 0 4px">example formulas (click to insert):</p>
+      <div style="background:var(--bgs);border:1px solid var(--bd);padding:8px;font-size:10px;margin-bottom:6px;cursor:pointer;color:var(--fg)" onclick="insertExample(0)">
+        <span style="color:var(--primary)"># food curve</span><br>
+        food = [s['food_collected_total'] for s in metrics['snapshots']]<br>
+        ax.plot([s['tick'] for s in metrics['snapshots']], food)
+      </div>
+      <div style="background:var(--bgs);border:1px solid var(--bd);padding:8px;font-size:10px;margin-bottom:6px;cursor:pointer;color:var(--fg)" onclick="insertExample(1)">
+        <span style="color:var(--primary)"># trip histogram</span><br>
+        steps = [t['steps_to_food'] for t in metrics['trips'] if t['steps_to_food'] > 0]<br>
+        ax.hist(steps, bins=20, color='#2dd4a0')
+      </div>
+      <div style="background:var(--bgs);border:1px solid var(--bd);padding:8px;font-size:10px;cursor:pointer;color:var(--fg)" onclick="insertExample(2)">
+        <span style="color:var(--primary)"># alive + food overlay</span><br>
+        snaps = metrics['snapshots']<br>
+        ax.plot(..., label='alive') ; ax2 = ax.twinx() ; ax2.plot(..., label='food')
+      </div>
+    </div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('docsMod')">close</button></div>
+  </div>
+</div>
+
+<!-- ═══ AUTH MODAL ═══ -->
+<div class="modal-ov" id="authMod">
+  <div class="modal" style="min-width:360px">
+    <div class="modal-hdr"><span>## AUTHENTICATION</span></div>
+    <div class="modal-body">
+      <p style="color:var(--dim);font-size:11px;margin-bottom:12px">This instance requires an API key to access.</p>
+      <div class="field"><label>api key</label><input class="inp" id="authKey" type="password" placeholder="enter key" onkeydown="if(event.key==='Enter')submitAuth()"></div>
+      <div id="authErr" style="color:var(--error);font-size:10px;display:none;margin-top:4px"></div>
+    </div>
+    <div class="modal-ft"><button class="btn btn-p" onclick="submitAuth()">connect</button></div>
+  </div>
+</div>
+
+<div class="toast-c" id="toastC"></div>
+
+<script>
+const API='';
+let apiKey=null;
+
+// Auth-aware fetch wrapper
+function afetch(url,opts={}){if(apiKey){opts.headers=opts.headers||{};opts.headers['Authorization']='Bearer '+apiKey;}return fetch(url,opts);}
+// Auth-aware SSE
+function aSSE(url){return new EventSource(apiKey?url+(url.includes('?')?'&':'?')+'api_key='+encodeURIComponent(apiKey):url);}
+// Auth-aware URL (for <img src>, window.open)
+function aUrl(u){return apiKey?u+(u.includes('?')?'&':'?')+'api_key='+encodeURIComponent(apiKey):u;}
+// Auth check + modal
+async function checkAuth(){try{const r=await fetch(API+'/api/auth/check');const d=await r.json();if(d.required){document.getElementById('authMod').classList.add('on');return false;}}catch(e){}return true;}
+async function submitAuth(){const k=document.getElementById('authKey').value.trim();if(!k)return;apiKey=k;const err=document.getElementById('authErr');err.style.display='none';try{const r=await afetch(API+'/api/simulations');if(r.status===401){err.style.display='block';err.textContent='invalid key';apiKey=null;return;}document.getElementById('authMod').classList.remove('on');toast('authenticated','success');initApp();}catch(e){err.style.display='block';err.textContent=e.message||'connection failed';apiKey=null;}}
+let agentCode='',curSimId=null,simTicks=[],simCfg=null,pbIdx=0,playing=false,speed=1,playTmr=null,curPlotId=null,sse=null,liveStreaming=false;let renderTimes=[],lastAutoAdjust=0;
+function maxRenderableSpeed(){
+  if(renderTimes.length<3)return 20;
+  const s=[...renderTimes].sort((a,b)=>a-b);
+  const p95=s[Math.floor(s.length*0.95)]||16;
+  return Math.max(0.5,50/Math.max(p95,1));
+}
+function adjustAutoSpeed(inputRate){
+  const now=performance.now();
+  if(now-lastAutoAdjust<500)return;
+  lastAutoAdjust=now;
+  const inputSpeed=inputRate>0?inputRate/20:100;
+  const target=Math.min(900,Math.max(0.5,Math.min(inputSpeed,maxRenderableSpeed())));
+  if(Math.abs(target-speed)/Math.max(speed,0.1)>0.1){
+    const sl=document.getElementById('spdSlider');sl.value=target;onSpdChange(sl);
+  }
+}
+let followAgent=null,tileInfoOpen=false,selectedTile=null;
+let prevTickAgg=null; // for delta tracking
+// Zoom/pan state
+let vpZoom=1,vpPanX=0,vpPanY=0,vpPanning=false,vpPanStart={x:0,y:0};
+
+const DEFAULT_CFG={name:"experiment_1a_baseline",grid:{width:20,height:20,neighborhood:8,default_capacity:99,obstacles:[[5,3],[5,4],[5,5],[5,6],[6,3],[6,4],[6,5],[6,6],[12,10],[12,11],[12,12],[13,10],[13,11],[13,12]]},nest:{x:10,y:10},food_sources:[{x:3,y:3,amount:50},{x:17,y:15,amount:30}],agents:{count:10,initial_energy:200,memory_size:5},pheromones:{drop_strength:10,min_drop_floor:1,evaporation_rate:0.1,evaporation_mode:"exponential",round_off_threshold:0.1},simulation:{max_ticks:500,random_seed:42,termination:["max_ticks","no_food_present","all_agents_dead"],snapshot_interval:5,agent_timeout_ms:100},warmstart:{enabled:false,pheromone_trails:[]}};
+
+// ─── UTILS ───
+function compactJson(o,d=0){if(o==null)return'null';if(typeof o==='string')return JSON.stringify(o);if(typeof o!=='object')return String(o);const p='  '.repeat(d),p1='  '.repeat(d+1);if(Array.isArray(o)){const f=JSON.stringify(o);if(f.length<80&&!o.some(x=>typeof x==='object'&&x!==null&&!Array.isArray(x)))return f;if(o.every(x=>Array.isArray(x)&&x.length<=3)){const ch=[];for(let i=0;i<o.length;i+=4)ch.push(o.slice(i,i+4).map(a=>JSON.stringify(a)).join(', '));return'[\n'+ch.map(c=>p1+c).join(',\n')+'\n'+p+']';}return'[\n'+o.map(x=>p1+compactJson(x,d+1)).join(',\n')+'\n'+p+']';}const ks=Object.keys(o);if(!ks.length)return'{}';const f=JSON.stringify(o);if(f.length<60)return f;return'{\n'+ks.map(k=>p1+JSON.stringify(k)+': '+compactJson(o[k],d+1)).join(',\n')+'\n'+p+'}';}
+function toast(m,t='info'){const e=document.createElement('div');e.className='toast'+(t==='error'?' err':t==='success'?' ok':'');e.innerHTML=`<div class="toast-tt">${t}</div>${m}`;document.getElementById('toastC').appendChild(e);setTimeout(()=>e.remove(),3500);}
+function openModal(id){document.getElementById(id).classList.add('on');if(id==='batchMod')updateBatchPreview();}
+function closeModal(id){document.getElementById(id).classList.remove('on');}
+function setSt(t){document.getElementById('sbSt').textContent=t;document.getElementById('hdrSt').textContent=t;}
+
+// ─── TABS ───
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.pnl').forEach(x=>x.classList.remove('on'));t.classList.add('on');document.getElementById(t.dataset.p).classList.add('on');if(t.dataset.p==='p2'){refreshLib();if(simTicks.length&&simCfg)renderTick(simTicks[pbIdx]);}if(t.dataset.p==='p3')refreshASims();}));
+
+// ─── CONFIG ───
+const cfgEd=document.getElementById('cfgEd');
+let gridTmr=null;
+cfgEd.addEventListener('input',()=>{clearTimeout(gridTmr);gridTmr=setTimeout(drawGridPreview,300);});
+function loadDefault(){cfgEd.value=compactJson(DEFAULT_CFG);drawGridPreview();validateCfg();}
+async function validateCfg(){try{const c=JSON.parse(cfgEd.value);const r=await afetch(API+'/api/config/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(c)});const d=await r.json();const g=document.getElementById('valG'),m=document.getElementById('valMsg');if(d.valid){g.className='g-ok';g.textContent='●';m.textContent='valid';m.style.color='';}else{g.className='g-err';g.textContent='✕';m.textContent=d.errors.join('; ');m.style.color='var(--error)';}}catch(e){document.getElementById('valG').className='g-err';document.getElementById('valG').textContent='✕';document.getElementById('valMsg').textContent='JSON error';document.getElementById('valMsg').style.color='var(--error)';}}
+
+function drawGridPreview(){let c;try{c=JSON.parse(cfgEd.value)}catch{return}const cv=document.getElementById('gridCv'),x=cv.getContext('2d');const gw=c.grid?.width||20,gh=c.grid?.height||20,sz=Math.min(400/gw,400/gh);cv.width=gw*sz;cv.height=gh*sz;x.fillStyle='#060610';x.fillRect(0,0,cv.width,cv.height);x.strokeStyle='rgba(255,255,255,0.05)';x.lineWidth=.5;for(let i=0;i<=gw;i++){x.beginPath();x.moveTo(i*sz,0);x.lineTo(i*sz,gh*sz);x.stroke();}for(let i=0;i<=gh;i++){x.beginPath();x.moveTo(0,i*sz);x.lineTo(gw*sz,i*sz);x.stroke();}(c.grid?.obstacles||[]).forEach(o=>{x.fillStyle='#1a1a2e';x.fillRect(o[0]*sz,o[1]*sz,sz,sz);});const n=c.nest||{x:0,y:0};x.fillStyle='rgba(70,120,255,0.4)';x.fillRect(n.x*sz,n.y*sz,sz,sz);x.fillStyle='#fff';x.font=`bold ${Math.max(8,sz*.5)}px var(--fm)`;x.textAlign='center';x.textBaseline='middle';x.fillText('N',n.x*sz+sz/2,n.y*sz+sz/2);(c.food_sources||[]).forEach(f=>{x.fillStyle=`rgba(255,180,50,${Math.min(1,.3+f.amount/50*.7)})`;x.fillRect(f.x*sz,f.y*sz,sz,sz);x.fillStyle='#000';x.font=`${Math.max(6,sz*.35)}px var(--fm)`;x.fillText(f.amount,f.x*sz+sz/2,f.y*sz+sz/2);});}
+
+// ─── AGENT ───
+const agDrop=document.getElementById('agDrop');
+agDrop.addEventListener('dragover',e=>{e.preventDefault();agDrop.style.borderColor='var(--primary)';});
+agDrop.addEventListener('dragleave',()=>{agDrop.style.borderColor='';});
+agDrop.addEventListener('drop',e=>{e.preventDefault();agDrop.style.borderColor='';if(e.dataTransfer.files[0])readAg(e.dataTransfer.files[0]);});
+function uploadAgent(e){if(e.target.files[0])readAg(e.target.files[0]);}
+function readAg(f){const r=new FileReader();r.onload=e=>{agentCode=e.target.result;document.getElementById('agSt').textContent='● '+f.name;document.getElementById('agSt').style.color='var(--success)';toast('agent loaded','success');};r.readAsText(f);}
+
+// ─── START SIM ───
+async function startSim(){let c;try{c=JSON.parse(cfgEd.value)}catch{toast('invalid JSON','error');return}const b={config:c};if(agentCode)b.agent_code=agentCode;try{const r=await afetch(API+'/api/simulation/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});if(!r.ok){toast((await r.json()).detail||'error','error');return}const d=await r.json();curSimId=d.sim_id;simCfg=c;toast('started: '+d.name,'success');setSt('◐ running');startSSE(d.sim_id);refreshQ();document.querySelector('[data-p="p2"]').click();}catch(e){toast(e.message,'error');}}
+
+// ─── BATCH ───
+['bStart','bEnd','bStep','bParam'].forEach(id=>document.getElementById(id).addEventListener('input',updateBatchPreview));
+function updateBatchPreview(){const s=+document.getElementById('bStart').value,e=+document.getElementById('bEnd').value,st=+document.getElementById('bStep').value||1,p=document.getElementById('bParam').value;document.getElementById('bPreview').textContent=`→ ${Math.max(0,Math.floor((e-s)/st)+1)} sims (${p}: ${s}..${e}, step ${st})`;}
+async function runBatch(){let c;try{c=JSON.parse(cfgEd.value)}catch{toast('invalid JSON','error');return}const b={batch:{parameter:document.getElementById('bParam').value,range:[+document.getElementById('bStart').value,+document.getElementById('bEnd').value],step:+document.getElementById('bStep').value||1,base_config:c}};if(agentCode)b.agent_code=agentCode;try{const r=await afetch(API+'/api/simulation/start-batch',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});const d=await r.json();toast(`batch: ${d.sim_ids.length} queued`,'success');closeModal('batchMod');refreshQ();}catch(e){toast(e.message,'error');}}
+
+// ─── SSE ───
+function startSSE(id){
+  if(sse)sse.close();
+  simTicks=[];pbIdx=0;stopPlay();liveStreaming=true;
+  let loadStart=performance.now(),loadRate=0,autoStarted=false;
+  const sc=document.getElementById('scrub');sc.max=0;sc.value=0;
+  sse=aSSE(API+`/api/simulation/${id}/stream`);
+  sse.onmessage=e=>{
+    const d=JSON.parse(e.data);
+    if(d.event==='done'){
+      sse.close();sse=null;liveStreaming=false;
+      setSt('● done');toast('complete','success');
+      refreshQ();refreshLib();updateFollowSel();
+      if(playing&&!playTmr&&pbIdx<simTicks.length-1)ptick();
+      return;
+    }
+    const incoming=Array.isArray(d)?d:[d];
+    const prevLen=simTicks.length;
+    for(const t of incoming)simTicks.push(t);
+    sc.max=simTicks.length-1;
+    loadRate=simTicks.length/((performance.now()-loadStart)/1000);
+    setSt(`◐ live ${simTicks.length} @ ${loadRate.toFixed(0)}/s`);
+    if(prevLen===0){renderTick(simTicks[0]);updTickLbl();}
+    if(simTicks.length>=5){
+      if(!autoStarted){
+        autoStarted=true;lastAutoAdjust=0;  // force first adjust now
+      }
+      adjustAutoSpeed(loadRate);
+    }
+    if(playing&&!playTmr&&pbIdx<simTicks.length-1)ptick();
+  };
+  sse.onerror=()=>{if(sse){sse.close();sse=null}liveStreaming=false;setSt('● done');updateFollowSel();};
+}
+
+// ─── SPEED SLIDER ───
+function onSpdChange(el){speed=parseFloat(el.value);document.getElementById('spdLbl').textContent=speed===0?'⏸':speed.toFixed(2)+'x';if(speed===0&&playing)stopPlay();if(speed>0&&!playing&&simTicks.length>1)startPlay();}
+
+// ─── VIEWER ───
+const simCv=document.getElementById('simCv'),simCtx=simCv.getContext('2d');
+
+function getCellSize(){const gw=simCfg?.grid?.width||20,gh=simCfg?.grid?.height||20;return Math.min(600/gw,600/gh);}
+
+// Tile click
+simCv.addEventListener('click',e=>{if(!simCfg||!simTicks.length)return;const r=simCv.getBoundingClientRect();const gw=simCfg.grid?.width||20,gh=simCfg.grid?.height||20;const cs=getCellSize();const cx=Math.floor((e.clientX-r.left)/(r.width/(gw)));const cy=Math.floor((e.clientY-r.top)/(r.height/(gh)));if(cx<0||cy<0||cx>=gw||cy>=gh)return;selectedTile={x:cx,y:cy};showTileInfo(cx,cy,simTicks[pbIdx]);
+// Check if clicked on an agent — enable follow
+const ts=simTicks[pbIdx];const clickedAgent=(ts.agents||[]).find(a=>a.alive&&a.x===cx&&a.y===cy);if(clickedAgent){followAgent=clickedAgent.id;document.getElementById('followSel').value=String(clickedAgent.id);toast(`following ant #${clickedAgent.id}`);}
+if(!tileInfoOpen){tileInfoOpen=true;document.getElementById('tileInfo').classList.add('on');document.getElementById('tiDrag').classList.add('on');}
+renderTick(simTicks[pbIdx]);});
+
+function toggleTileInfo(){tileInfoOpen=!tileInfoOpen;document.getElementById('tileInfo').classList.toggle('on',tileInfoOpen);document.getElementById('tiDrag').classList.toggle('on',tileInfoOpen);}
+
+// ─── ZOOM / PAN ───
+function vpApply(){const el=document.getElementById('cvInner');if(el)el.style.transform=`translate(${vpPanX}px,${vpPanY}px) scale(${vpZoom})`;}
+function vpAdjZoom(f){vpZoom=Math.min(10,Math.max(0.2,vpZoom*f));vpApply();document.getElementById('spdLbl');/* noop ref */}
+function vpReset(){vpZoom=1;vpPanX=0;vpPanY=0;vpApply();}
+(function(){
+  const wrap=document.getElementById('cvWrap');
+  // Wheel zoom (zoom toward cursor)
+  wrap.addEventListener('wheel',e=>{
+    e.preventDefault();
+    const rect=wrap.getBoundingClientRect();
+    const mx=e.clientX-rect.left-rect.width/2;
+    const my=e.clientY-rect.top-rect.height/2;
+    const f=e.deltaY<0?1.12:1/1.12;
+    const nz=Math.min(10,Math.max(0.2,vpZoom*f));
+    // Adjust pan so zoom is toward cursor
+    vpPanX=mx+(vpPanX-mx)*(nz/vpZoom);
+    vpPanY=my+(vpPanY-my)*(nz/vpZoom);
+    vpZoom=nz;vpApply();
+  },{passive:false});
+  // Middle-click or Alt+drag pan
+  wrap.addEventListener('mousedown',e=>{
+    if(e.button===1||e.altKey){e.preventDefault();vpPanning=true;vpPanStart={x:e.clientX-vpPanX,y:e.clientY-vpPanY};wrap.classList.add('panning');}
+  });
+  document.addEventListener('mousemove',e=>{
+    if(!vpPanning)return;
+    vpPanX=e.clientX-vpPanStart.x;vpPanY=e.clientY-vpPanStart.y;vpApply();
+  });
+  document.addEventListener('mouseup',e=>{
+    if(!vpPanning)return;vpPanning=false;document.getElementById('cvWrap').classList.remove('panning');
+  });
+  // Touch pinch-zoom + drag
+  let touches={},pinchDist0=0,zoom0=1,pan0={x:0,y:0},touch0={x:0,y:0};
+  wrap.addEventListener('touchstart',e=>{
+    if(e.touches.length===2){
+      const t=e.touches;pinchDist0=Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);zoom0=vpZoom;pan0={x:vpPanX,y:vpPanY};
+    } else if(e.touches.length===1){
+      touch0={x:e.touches[0].clientX-vpPanX,y:e.touches[0].clientY-vpPanY};
+    }
+  },{passive:true});
+  wrap.addEventListener('touchmove',e=>{
+    e.preventDefault();
+    if(e.touches.length===2){
+      const t=e.touches;const d=Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+      vpZoom=Math.min(10,Math.max(0.2,zoom0*(d/pinchDist0)));vpApply();
+    } else if(e.touches.length===1){
+      vpPanX=e.touches[0].clientX-touch0.x;vpPanY=e.touches[0].clientY-touch0.y;vpApply();
+    }
+  },{passive:false});
+})();
+
+// ─── DRAG RESIZE TILE INFO ───
+(function(){const drag=document.getElementById('tiDrag'),ti=document.getElementById('tileInfo');let startX,startW,active=false;
+drag.addEventListener('mousedown',e=>{e.preventDefault();active=true;startX=e.clientX;startW=ti.offsetWidth;drag.classList.add('dragging');document.body.style.cursor='col-resize';document.body.style.userSelect='none';});
+document.addEventListener('mousemove',e=>{if(!active)return;const dx=startX-e.clientX;ti.style.width=Math.max(120,Math.min(500,startW+dx))+'px';});
+document.addEventListener('mouseup',()=>{if(!active)return;active=false;drag.classList.remove('dragging');document.body.style.cursor='';document.body.style.userSelect='';});
+})();
+
+function showTileInfo(cx,cy,ts){
+  if(!ts)return;
+  const el=document.getElementById('tiBody');
+  const agents=ts.agents||[], pheros=ts.pheromones||[], foods=ts.food_sources||[];
+
+  // ── Grid overview (always shown) ──
+  const aliveAll=agents.filter(a=>a.alive), deadAll=agents.filter(a=>!a.alive);
+  const carryAll=aliveAll.filter(a=>a.carries);
+  const totalPF=pheros.reduce((s,p)=>s+p.food,0);
+  const totalPN=pheros.reduce((s,p)=>s+p.nest,0);
+  const totalFood=foods.reduce((s,f)=>s+f.amount,0);
+
+  // Deltas
+  let dAlive='', dCarry='', dPF='', dPN='', dFood='';
+  if(prevTickAgg){
+    const da=aliveAll.length-prevTickAgg.alive; dAlive=da?` <span style="color:${da>0?'var(--success)':'var(--error)'}"> ${da>0?'+':''}${da}</span>`:'';
+    const dc=carryAll.length-prevTickAgg.carry; dCarry=dc?` <span style="color:${dc>0?'var(--warning)':'var(--dim)'}"> ${dc>0?'+':''}${dc}</span>`:'';
+    const dpf=(totalPF-prevTickAgg.pf).toFixed(1); dPF=+dpf?` <span style="color:var(--dim)"> ${+dpf>0?'+':''}${dpf}</span>`:'';
+    const dpn=(totalPN-prevTickAgg.pn).toFixed(1); dPN=+dpn?` <span style="color:var(--dim)"> ${+dpn>0?'+':''}${dpn}</span>`:'';
+    const df=totalFood-prevTickAgg.food; dFood=df?` <span style="color:${df>0?'var(--success)':'var(--warning)'}"> ${df>0?'+':''}${df}</span>`:'';
+  }
+  prevTickAgg={alive:aliveAll.length,carry:carryAll.length,pf:totalPF,pn:totalPN,food:totalFood};
+
+  let h=`<div class="ti-section">grid overview (tick ${ts.tick})</div>`;
+  h+=`<div class="ti-row">alive: <span>${aliveAll.length}/${agents.length}${dAlive}</span></div>`;
+  h+=`<div class="ti-row">carrying: <span style="color:var(--warning)">${carryAll.length}${dCarry}</span></div>`;
+  h+=`<div class="ti-row">food left: <span>${totalFood}${dFood}</span></div>`;
+  h+=`<div class="ti-row">nest food: <span>${ts.nest_food_total}</span></div>`;
+  h+=`<div class="ti-row">pheromone cells: <span>${pheros.length}</span></div>`;
+  h+=`<div class="ti-row">Σ FOOD phero: <span style="color:#ffaa28">${totalPF.toFixed(1)}${dPF}</span></div>`;
+  h+=`<div class="ti-row">Σ NEST phero: <span style="color:#4d7fff">${totalPN.toFixed(1)}${dPN}</span></div>`;
+
+  // Carrying ants list
+  if(carryAll.length){
+    h+=`<div class="ti-section">carrying food (${carryAll.length})</div>`;
+    carryAll.forEach(a=>{h+=`<div class="ti-row" style="cursor:pointer" onclick="followAgent=${a.id};document.getElementById('followSel').value='${a.id}';onFollowChange()"><span style="color:var(--warning)">ant #${a.id}</span> <span>(${a.x},${a.y}) E:${a.energy}</span></div>`;});
+  }
+
+  // ── Cell detail (if tile selected) ──
+  if(cx!==null&&cy!==null){
+    document.getElementById('tiHdr').textContent=`cell (${cx}, ${cy})`;
+    const obs=(simCfg.grid?.obstacles||[]).some(o=>o[0]===cx&&o[1]===cy);
+    const nest=simCfg.nest&&simCfg.nest.x===cx&&simCfg.nest.y===cy;
+    const food=foods.find(f=>f.x===cx&&f.y===cy);
+    const phero=pheros.find(p=>p.x===cx&&p.y===cy);
+    const cellAgents=agents.filter(a=>a.x===cx&&a.y===cy);
+    const alive=cellAgents.filter(a=>a.alive),dead=cellAgents.filter(a=>!a.alive);
+
+    h+=`<div class="ti-section">cell (${cx}, ${cy})</div>`;
+    h+=`<div class="ti-row">type: <span>${obs?'obstacle':nest?'nest':'open'}</span></div>`;
+    if(food)h+=`<div class="ti-row">food: <span style="color:var(--warning)">${food.amount}</span></div>`;
+    if(phero){h+=`<div class="ti-row">FOOD phero: <span style="color:#ffaa28">${phero.food.toFixed(1)}</span></div>`;h+=`<div class="ti-row">NEST phero: <span style="color:#4d7fff">${phero.nest.toFixed(1)}</span></div>`;}
+    else h+=`<div class="ti-row">pheromones: <span>none</span></div>`;
+    h+=`<div class="ti-section">agents here (${alive.length} alive${dead.length?', '+dead.length+' dead':''})</div>`;
+    if(!cellAgents.length)h+=`<div class="ti-row" style="color:var(--mut)">none</div>`;
+    alive.forEach(a=>{h+=`<div class="ti-row" style="cursor:pointer" onclick="followAgent=${a.id};document.getElementById('followSel').value='${a.id}';onFollowChange()">ant #${a.id} <span>${a.carries?'🟡 carry':'○'} E:${a.energy}</span></div>`;});
+    dead.forEach(a=>{h+=`<div class="ti-row"><span class="g-err">✕</span> ant #${a.id} <span>dead</span></div>`;});
+  } else {
+    document.getElementById('tiHdr').textContent='grid overview';
+  }
+  el.innerHTML=h;
+}
+
+function updateFollowSel(){
+  const sel=document.getElementById('followSel');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">follow: off</option>';
+  if(!simTicks.length)return;
+  const ts=simTicks[simTicks.length-1];
+  (ts.agents||[]).forEach(a=>{if(a.alive)sel.innerHTML+=`<option value="${a.id}"${String(a.id)===cur?' selected':''}>ant #${a.id}</option>`;});
+}
+function onFollowChange(){const v=document.getElementById('followSel').value;followAgent=v===''?null:parseInt(v);if(followAgent!==null&&!tileInfoOpen){tileInfoOpen=true;document.getElementById('tileInfo').classList.add('on');document.getElementById('tiDrag').classList.add('on');}if(followAgent===null){selectedTile=null;}if(simTicks[pbIdx])renderTick(simTicks[pbIdx]);}
+
+function renderTick(ts){
+  if(!ts||!simCfg)return;
+  const gw=simCfg.grid?.width||20,gh=simCfg.grid?.height||20,cs=getCellSize();
+  simCv.width=gw*cs;simCv.height=gh*cs;const c=simCtx;
+
+  c.fillStyle='#060610';c.fillRect(0,0,simCv.width,simCv.height);
+  c.strokeStyle='rgba(255,255,255,0.03)';c.lineWidth=.5;
+  for(let x=0;x<=gw;x++){c.beginPath();c.moveTo(x*cs,0);c.lineTo(x*cs,gh*cs);c.stroke();}
+  for(let y=0;y<=gh;y++){c.beginPath();c.moveTo(0,y*cs);c.lineTo(gw*cs,y*cs);c.stroke();}
+
+  // Obstacles
+  (simCfg.grid?.obstacles||[]).forEach(o=>{c.fillStyle='#1a1a2e';c.fillRect(o[0]*cs,o[1]*cs,cs,cs);c.strokeStyle='rgba(255,255,255,0.05)';c.lineWidth=.5;c.beginPath();c.moveTo(o[0]*cs,o[1]*cs);c.lineTo((o[0]+1)*cs,(o[1]+1)*cs);c.stroke();c.beginPath();c.moveTo((o[0]+1)*cs,o[1]*cs);c.lineTo(o[0]*cs,(o[1]+1)*cs);c.stroke();});
+
+  // Pheromones
+  (ts.pheromones||[]).forEach(p=>{if(p.food>0){c.fillStyle=`rgba(255,170,40,${Math.min(.6,p.food/15)})`;c.fillRect(p.x*cs,p.y*cs,cs,cs);}if(p.nest>0){c.fillStyle=`rgba(70,120,255,${Math.min(.4,p.nest/15)})`;c.fillRect(p.x*cs,p.y*cs,cs,cs);}});
+
+  // Nest
+  const n=simCfg.nest||{x:0,y:0};
+  c.fillStyle='rgba(70,120,255,0.3)';c.fillRect(n.x*cs,n.y*cs,cs,cs);c.strokeStyle='rgba(70,120,255,0.7)';c.lineWidth=1.5;c.strokeRect(n.x*cs+1,n.y*cs+1,cs-2,cs-2);c.fillStyle='rgba(255,255,255,0.8)';c.font=`bold ${Math.max(7,cs*.45)}px var(--fm)`;c.textAlign='center';c.textBaseline='middle';c.fillText('N',n.x*cs+cs/2,n.y*cs+cs/2);
+
+  // Food
+  (ts.food_sources||[]).forEach(f=>{const r=Math.max(2,(f.amount/50)*cs*.4);c.fillStyle=`rgba(255,180,50,${Math.min(1,.3+f.amount/50*.7)})`;c.beginPath();c.arc(f.x*cs+cs/2,f.y*cs+cs/2,r,0,Math.PI*2);c.fill();if(cs>=10){c.fillStyle='rgba(0,0,0,0.7)';c.font=`${Math.max(6,cs*.28)}px var(--fm)`;c.fillText(f.amount,f.x*cs+cs/2,f.y*cs+cs/2);}});
+
+  // Agents
+  (ts.agents||[]).forEach(a=>{if(!a.alive)return;const cx=a.x*cs+cs/2,cy=a.y*cs+cs/2,s=Math.max(3,cs*.33);
+    const isFollowed=followAgent!==null&&a.id===followAgent;
+    if(isFollowed){c.strokeStyle='var(--primary)';c.lineWidth=1.5;c.strokeRect(a.x*cs+1,a.y*cs+1,cs-2,cs-2);}
+    c.fillStyle=a.carries?'#ffcc44':'rgba(255,255,255,0.88)';
+    c.beginPath();c.ellipse(cx,cy-s*.35,s*.24,s*.2,0,0,Math.PI*2);c.fill();
+    c.beginPath();c.ellipse(cx,cy,s*.18,s*.16,0,0,Math.PI*2);c.fill();
+    c.beginPath();c.ellipse(cx,cy+s*.4,s*.28,s*.26,0,0,Math.PI*2);c.fill();
+    c.strokeStyle=a.carries?'#ffcc44':'rgba(255,255,255,0.6)';c.lineWidth=.7;
+    c.beginPath();c.moveTo(cx-s*.1,cy-s*.5);c.lineTo(cx-s*.28,cy-s*.75);c.moveTo(cx+s*.1,cy-s*.5);c.lineTo(cx+s*.28,cy-s*.75);c.stroke();
+    for(let i=-1;i<=1;i++){const ly=cy+i*s*.2;c.beginPath();c.moveTo(cx-s*.2,ly);c.lineTo(cx-s*.45,ly+s*.12);c.moveTo(cx+s*.2,ly);c.lineTo(cx+s*.45,ly+s*.12);c.stroke();}
+    if(a.carries){c.fillStyle='rgba(255,170,40,0.8)';c.beginPath();c.arc(cx,cy-s*.65,s*.1,0,Math.PI*2);c.fill();}
+  });
+  // Dead
+  (ts.agents||[]).forEach(a=>{if(a.alive)return;c.fillStyle='rgba(255,60,60,0.4)';c.font=`${Math.max(6,cs*.35)}px var(--fm)`;c.textAlign='center';c.textBaseline='middle';c.fillText('✕',a.x*cs+cs/2,a.y*cs+cs/2);});
+
+  // Selected tile highlight
+  if(selectedTile&&tileInfoOpen){c.strokeStyle='var(--primary)';c.lineWidth=2;c.setLineDash([3,3]);c.strokeRect(selectedTile.x*cs,selectedTile.y*cs,cs,cs);c.setLineDash([]);}
+
+  // Stats
+  document.getElementById('sTick').textContent=ts.tick;
+  document.getElementById('sAlive').textContent=ts.alive_count;
+  document.getElementById('sDead').textContent=ts.dead_count;
+  document.getElementById('sFood').textContent=(ts.food_sources||[]).reduce((s,f)=>s+f.amount,0);
+  document.getElementById('sNest').textContent=ts.nest_food_total;
+  document.getElementById('sPhero').textContent=(ts.pheromones||[]).length;
+
+  // Auto-track followed agent
+  if(followAgent!==null){const fa=(ts.agents||[]).find(a=>a.id===followAgent);if(fa){selectedTile={x:fa.x,y:fa.y};}}
+
+  // Update tile info if open
+  if(tileInfoOpen){showTileInfo(selectedTile?selectedTile.x:null,selectedTile?selectedTile.y:null,ts);}
+  // Update follow select on first/last tick
+  if(ts.tick===0||!document.getElementById('followSel').options.length)updateFollowSel();
+}
+
+// ─── PLAYBACK ───
+function togglePlay(){if(speed===0){document.getElementById('spdSlider').value=1;onSpdChange(document.getElementById('spdSlider'));}playing?stopPlay():startPlay();}
+function startPlay(){if(!simTicks.length)return;playing=true;document.getElementById('playBtn').textContent='⏸ pause';ptick();}
+function stopPlay(){playing=false;document.getElementById('playBtn').textContent='▶ play';if(playTmr){clearTimeout(playTmr);playTmr=null;}}
+function ptick(){
+  if(!playing||speed===0){stopPlay();return}
+  if(pbIdx>=simTicks.length-1){
+    if(liveStreaming){playTmr=null;return}
+    stopPlay();return;
+  }
+  pbIdx++;
+  document.getElementById('scrub').value=pbIdx;
+  const t0=performance.now();
+  renderTick(simTicks[pbIdx]);
+  const dt=performance.now()-t0;
+  renderTimes.push(dt);if(renderTimes.length>20)renderTimes.shift();
+  updTickLbl();
+  playTmr=setTimeout(ptick,Math.max(5,50/speed));
+}
+function scrubTo(v){pbIdx=v;if(simTicks[pbIdx])renderTick(simTicks[pbIdx]);updTickLbl();}
+function updTickLbl(){document.getElementById('tickLbl').textContent=`${pbIdx} / ${simTicks.length-1}`;}
+function screenshot(){const a=document.createElement('a');a.download=`sim_t${pbIdx}.png`;a.href=simCv.toDataURL('image/png');a.click();toast('saved','success');}
+
+// ─── LIBRARY ───
+async function refreshLib(){try{const sims=await(await afetch(API+'/api/simulations')).json();const el=document.getElementById('libList');if(!sims.length){el.innerHTML='<div style="color:var(--mut);font-size:10px;padding:4px">no simulations</div>';return}el.innerHTML=sims.map(s=>{const g=s.status==='completed'?'<span class="g-ok">●</span>':s.status==='running'?'<span class="g-pen">◐</span>':s.status==='failed'?'<span class="g-err">✕</span>':'<span class="g-off">○</span>';return`<div class="lib-item${s.id===curSimId?' on':''}" onclick="loadSim('${s.id}')"><span class="nm">${g} ${s.name}</span><span class="mt">${s.ticks} ticks · ${s.status}</span></div>`;}).join('');}catch(e){}}
+function filterLib(){const q=document.getElementById('libQ').value.toLowerCase();document.querySelectorAll('.lib-item').forEach(el=>{el.style.display=el.textContent.toLowerCase().includes(q)?'':'none';});}
+async function loadSim(id){curSimId=id;stopPlay();try{const st=await(await afetch(API+`/api/simulation/${id}/status`)).json();simCfg=st.config||simCfg||DEFAULT_CFG;if(st.status==='running'){startSSE(id);}else{streamLoadSim(id);}refreshLib();toast(`loading: ${st.name}`);}catch(e){toast('load failed','error');}}
+
+function streamLoadSim(id){
+  simTicks=[];pbIdx=0;stopPlay();liveStreaming=true;
+  let loadStart=performance.now(),lastCountAt=loadStart,lastCount=0,loadRate=0;
+  let loadDone=false,autoPlaying=false;
+  const sc=document.getElementById('scrub');
+  sc.max=0;sc.value=0;
+  setSt('◐ loading...');
+
+  // Adaptive auto-play: speed tracks how fast ticks arrive
+  function maybeAutoPlay(){
+    if(autoPlaying||playing||simTicks.length<2)return;
+    autoPlaying=true;
+    // Set speed to match load rate (ticks/s → frames/s via ptick delay = 50/speed ms)
+    lastAutoAdjust=0;adjustAutoSpeed(loadRate);
+    pbIdx=0;sc.value=0;
+    startPlay();
+  }
+
+  const es=aSSE(API+`/api/simulation/${id}/stream`);
+  es.onmessage=e=>{
+    const d=JSON.parse(e.data);
+    if(d.event==='done'){
+      es.close();loadDone=true;liveStreaming=false;
+      setSt('● done');
+      sc.max=simTicks.length-1;
+      updateFollowSel();
+      if(!autoPlaying&&simTicks.length){pbIdx=0;sc.value=0;renderTick(simTicks[0]);updTickLbl();}
+      if(playing&&!playTmr&&pbIdx<simTicks.length-1)ptick();
+      return;
+    }
+    // chunk-mode: server sends array of ticks at once, or single tick dict
+    const incoming=Array.isArray(d)?d:[d];
+    const prevLen=simTicks.length;
+    for(const t of incoming)simTicks.push(t);
+    sc.max=simTicks.length-1;
+
+    // Update load rate & status on every chunk
+    const now=performance.now();
+    loadRate=simTicks.length/((now-loadStart)/1000);
+    setSt(`◐ loading ${simTicks.length} ticks @ ${loadRate.toFixed(0)}/s`);
+    if(autoPlaying)adjustAutoSpeed(loadRate);
+
+    // Render first tick immediately
+    if(prevLen===0&&simTicks.length>0){renderTick(simTicks[0]);updTickLbl();}
+    // Start auto-play once we have a small buffer
+    if(prevLen<10&&simTicks.length>=10)maybeAutoPlay();
+    // Resume ptick if it paused at buffer end
+    if(playing&&!playTmr&&pbIdx<simTicks.length-1)ptick();
+  };
+  es.onerror=()=>{
+    es.close();liveStreaming=false;
+    if(simTicks.length){
+      setSt('● done');
+      if(!playing){pbIdx=0;sc.value=0;renderTick(simTicks[0]);updTickLbl();}
+      updateFollowSel();
+      if(playing&&!playTmr&&pbIdx<simTicks.length-1)ptick();
+    }
+  };
+}
+
+// ─── QUEUE ───
+async function refreshQ(){try{const q=await(await afetch(API+'/api/queue')).json();const sims=await(await afetch(API+'/api/simulations')).json();document.getElementById('sbQ').textContent=`queue: ${q.running_count}/${q.max_concurrent} · ${q.pending_count} pending`;const el=document.getElementById('qList');if(!sims.length){el.innerHTML='<div style="color:var(--mut);font-size:10px;padding:3px">empty</div>';return}el.innerHTML=sims.slice(-25).map(s=>{const g=s.status==='completed'?'●':s.status==='running'?'◐':s.status==='failed'?'✕':'○';const gc=s.status==='completed'?'g-ok':s.status==='running'?'g-pen':s.status==='failed'?'g-err':'g-off';return`<div class="q-item"><span><span class="${gc}">${g}</span> ${s.name}</span><span>${s.ticks} ticks</span></div>`;}).join('');}catch(e){}}
+
+// ─── ANALYSIS ───
+async function refreshASims(){try{const sims=await(await afetch(API+'/api/simulations')).json();const el=document.getElementById('aSimList');el.innerHTML=sims.map(s=>`<label class="sim-check"><input type="checkbox" value="${s.id}" data-name="${s.name}">${s.name} <span style="color:var(--mut)">(${s.status})</span></label>`).join('');}catch(e){}}
+function getSelectedSims(){return[...document.querySelectorAll('#aSimList input:checked')].map(c=>c.value);}
+function getFirstSelectedSim(){const sel=getSelectedSims();return sel.length?sel[0]:null;}
+
+async function runPlot(type){const id=getFirstSelectedSim();if(!id){toast('select a simulation','error');return}try{const r=await afetch(API+'/api/analysis/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sim_id:id,type})});if(!r.ok){const d=await r.json();toast(d.detail||'plot failed','error');return}const d=await r.json();curPlotId=d.plot_id;document.getElementById('plotBox').innerHTML=`<img src="${aUrl(API+"/api/analysis/"+d.plot_id+"/plot.png")}">`;}catch(e){toast(e.message,'error');}}
+
+async function compareSims(metric){const ids=getSelectedSims();if(ids.length<2){toast('select 2+ sims to compare','error');return}try{const r=await afetch(API+'/api/analysis/compare',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sim_ids:ids,metric})});if(!r.ok){const d=await r.json();toast(d.detail||'compare failed','error');return}const d=await r.json();curPlotId=d.plot_id;document.getElementById('plotBox').innerHTML=`<img src="${aUrl(API+"/api/analysis/"+d.plot_id+"/plot.png")}">`;}catch(e){toast(e.message,'error');}}
+
+async function runCustom(){const id=getFirstSelectedSim();const code=document.getElementById('frmEd').value;if(!code){toast('enter formula','error');return}try{const r=await afetch(API+'/api/analysis/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sim_id:id||undefined,type:'custom',code})});if(!r.ok){toast('formula error','error');return}const d=await r.json();curPlotId=d.plot_id;document.getElementById('plotBox').innerHTML=`<img src="${aUrl(API+"/api/analysis/"+d.plot_id+"/plot.png")}">`;}catch(e){toast(e.message,'error');}}
+
+// ─── FORMULA EXAMPLES (proper newlines) ───
+const EXAMPLES=[
+`# food curve
+food = [s['food_collected_total'] for s in metrics['snapshots']]
+ticks_x = [s['tick'] for s in metrics['snapshots']]
+ax.plot(ticks_x, food, color='#4d7fff')
+ax.set_title('Food collected over time')`,
+`# trip step distribution
+steps = [t['steps_to_food'] for t in metrics['trips'] if t['steps_to_food'] > 0]
+ax.hist(steps, bins=20, color='#2dd4a0', edgecolor='#0a0a0f')
+ax.set_title('Steps-to-food distribution')
+ax.set_xlabel('steps')`,
+`# alive agents + food overlay
+snaps = metrics['snapshots']
+t = [s['tick'] for s in snaps]
+ax.plot(t, [s['alive_count'] for s in snaps], color='#2dd4a0', label='alive')
+ax.set_ylabel('alive agents')
+ax2 = ax.twinx()
+ax2.plot(t, [s['food_collected_total'] for s in snaps], color='#ffaa28', label='food')
+ax2.set_ylabel('food collected')
+ax.legend(loc='upper left'); ax2.legend(loc='upper right')
+ax.set_title('Alive agents vs food collected')`
+];
+function insertExample(i){const ed=document.getElementById('frmEd');ed.value=EXAMPLES[i];hlFormula();closeModal('docsMod');toast('inserted','success');}
+
+// ─── BUILDING BLOCKS ───
+const BLOCKS={
+  xaxis:`snaps = metrics['snapshots']\nt = [s['tick'] for s in snaps]`,
+  food:`food = [s['food_collected_total'] for s in snaps]\nax.plot(t, food, color='#4d7fff', label='food collected')`,
+  alive:`alive = [s['alive_count'] for s in snaps]\nax.plot(t, alive, color='#2dd4a0', label='alive agents')`,
+  steps:`stf = [s['avg_steps_to_food'] for s in snaps]\nax.plot(t, stf, color='#ff6b6b', label='avg steps to food')`,
+  deaths:`dead = [s['dead_count'] for s in snaps]\nax.plot(t, dead, color='#a78bfa', label='dead agents')`,
+  hist_trips:`trip_steps = [t['steps_to_food'] for t in metrics['trips'] if t['steps_to_food'] > 0]\nax.hist(trip_steps, bins=min(25, len(trip_steps)), color='#38bdf8', edgecolor='#0a0a0f')\nax.set_xlabel('steps to food')`,
+  hist_energy:`energies = [a['energy'] for a in ticks[-1]['agents'] if a['alive']]\nax.hist(energies, bins=15, color='#f472b6', edgecolor='#0a0a0f')\nax.set_xlabel('energy')`,
+  scatter_trips:`if metrics['trips']:\n    ax.scatter([t['t_find_food'] for t in metrics['trips']], [t['t_return_nest'] for t in metrics['trips']], c='#4d7fff', s=12, alpha=0.6)\n    ax.set_xlabel('tick found food'); ax.set_ylabel('tick returned to nest')`
+};
+function buildFormula(){const ed=document.getElementById('frmEd');const checked=[...document.querySelectorAll('#blocks input:checked')].map(c=>c.dataset.block);if(!checked.length){toast('check some blocks','error');return}
+let code='';const needsSnaps=checked.some(b=>['xaxis','food','alive','steps','deaths'].includes(b));
+if(needsSnaps&&!checked.includes('xaxis'))code+=BLOCKS.xaxis+'\n';
+checked.forEach(b=>{if(BLOCKS[b])code+=BLOCKS[b]+'\n';});
+const title=document.getElementById('blockTitle').value;if(title)code+=`ax.set_title('${title}')\n`;
+if(checked.filter(b=>!['xaxis','hist_trips','hist_energy','scatter_trips'].includes(b)).length>1)code+='ax.legend()\n';
+ed.value=(ed.value?ed.value+'\n':'')+code;hlFormula();toast('blocks appended','success');}
+
+// ─── SYNTAX HIGHLIGHTING ───
+function hlFormula(){const ed=document.getElementById('frmEd'),hl=document.getElementById('frmHl');if(!ed||!hl)return;hl.innerHTML=highlight(ed.value)+'\n';syncFrmScroll();}
+function syncFrmScroll(){const ed=document.getElementById('frmEd'),hl=document.getElementById('frmHl');if(hl&&ed){hl.scrollTop=ed.scrollTop;hl.scrollLeft=ed.scrollLeft;}}
+function highlight(src){
+  const KW=new Set('for,in,if,else,elif,return,import,from,def,class,lambda,not,and,or,True,False,None,while,try,except,with,as,break,continue,pass,yield'.split(','));
+  const BI=new Set('ax,ax2,fig,plt,np,metrics,ticks,config,snaps,self,print,len,range,min,max,sum,sorted,list,dict,int,float,str,set,enumerate,zip'.split(','));
+  const FN=new Set('plot,hist,scatter,bar,set_title,set_xlabel,set_ylabel,legend,twinx,fill_between,annotate,grid,axhline,axvline,subplots'.split(','));
+  let out='',i=0;
+  function esc(c){return c==='&'?'&amp;':c==='<'?'&lt;':c==='>'?'&gt;':c;}
+  while(i<src.length){
+    const c=src[i];
+    // comment
+    if(c==='#'){let end=src.indexOf('\n',i);if(end===-1)end=src.length;out+='<span class="hl-cm">'+src.slice(i,end).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</span>';i=end;continue;}
+    // strings
+    if(c==='\''||c==='"'){const q=c;let j=i+1;while(j<src.length&&src[j]!==q){if(src[j]==='\\')j++;j++;}j=Math.min(j+1,src.length);out+='<span class="hl-str">'+src.slice(i,j).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</span>';i=j;continue;}
+    // numbers
+    if(/\d/.test(c)&&(i===0||!/\w/.test(src[i-1]))){let j=i;while(j<src.length&&/[\d.]/.test(src[j]))j++;out+='<span class="hl-num">'+src.slice(i,j)+'</span>';i=j;continue;}
+    // identifiers
+    if(/[a-zA-Z_]/.test(c)){let j=i;while(j<src.length&&/\w/.test(src[j]))j++;const w=src.slice(i,j);if(KW.has(w))out+='<span class="hl-kw">'+w+'</span>';
+    else if(BI.has(w))out+='<span class="hl-bi">'+w+'</span>';
+    else if(FN.has(w))out+='<span class="hl-fn">'+w+'</span>';
+    else out+=w;i=j;continue;}
+    out+=esc(c);i++;
+  }
+  return out;
+}
+function expPng(){if(!curPlotId){toast('no plot','error');return}window.open(aUrl(API+`/api/analysis/${curPlotId}/plot.png`));}
+function expSvg(){if(!curPlotId){toast('no plot','error');return}window.open(aUrl(API+`/api/analysis/${curPlotId}/plot.svg`));}
+function expCsv(){if(!curPlotId){toast('no plot','error');return}window.open(aUrl(API+`/api/analysis/${curPlotId}/data.csv`));}
+function dlSim(){const id=getFirstSelectedSim()||curSimId;if(!id){toast('select sim','error');return}window.open(aUrl(API+`/api/simulation/${id}/download`));}
+async function upSim(e){const f=e.target.files[0];if(!f)return;const fd=new FormData();fd.append('file',f);try{await afetch(API+'/api/simulation/upload',{method:'POST',body:fd});toast('uploaded','success');refreshLib();refreshASims();}catch{toast('upload failed','error');}}
+
+// ─── CLOCK ───
+setInterval(()=>{document.getElementById('sbT').textContent=new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit',second:'2-digit'});},1000);
+
+// ─── INIT ───
+function initApp(){loadDefault();refreshQ();setInterval(refreshQ,5000);}
+(async()=>{const ok=await checkAuth();if(ok)initApp();})();
+</script>
+</body>
+</html>

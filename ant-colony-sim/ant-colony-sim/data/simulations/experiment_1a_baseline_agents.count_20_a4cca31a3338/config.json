@@ -1,0 +1,53 @@
+{
+  "name": "experiment_1a_baseline_agents.count_20",
+  "grid": {
+    "width": 20,
+    "height": 20,
+    "neighborhood": 8,
+    "default_capacity": 99,
+    "obstacles": []
+  },
+  "nest": {
+    "x": 10,
+    "y": 10
+  },
+  "food_sources": [
+    {
+      "x": 3,
+      "y": 3,
+      "amount": 10000
+    },
+    {
+      "x": 17,
+      "y": 15,
+      "amount": 10000
+    }
+  ],
+  "agents": {
+    "count": 20,
+    "initial_energy": 200,
+    "memory_size": 5
+  },
+  "pheromones": {
+    "drop_strength": 10,
+    "min_drop_floor": 1,
+    "evaporation_rate": 0.1,
+    "evaporation_mode": "exponential",
+    "round_off_threshold": 0.1
+  },
+  "simulation": {
+    "max_ticks": 500,
+    "random_seed": 42,
+    "termination": [
+      "max_ticks",
+      "no_food_present",
+      "all_agents_dead"
+    ],
+    "snapshot_interval": 5,
+    "agent_timeout_ms": 100
+  },
+  "warmstart": {
+    "enabled": false,
+    "pheromone_trails": []
+  }
+}

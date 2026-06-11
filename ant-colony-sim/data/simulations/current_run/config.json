@@ -1,0 +1,22 @@
+{
+  "ticks": 1000,
+  "colony_size": 12,
+  "grid_width": 20,
+  "grid_height": 20,
+  "food_sources": [
+    {
+      "x": 3,
+      "y": 3,
+      "amount": 50
+    },
+    {
+      "x": 17,
+      "y": 15,
+      "amount": 30
+    }
+  ],
+  "nest_x": 10,
+  "nest_y": 10,
+  "snapshot_interval": 5,
+  "name": "current_run"
+}

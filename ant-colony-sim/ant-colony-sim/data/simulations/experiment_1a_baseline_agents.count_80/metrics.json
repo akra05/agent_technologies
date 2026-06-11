@@ -1,0 +1,852 @@
+{
+  "name": "experiment_1a_baseline_agents.count_80",
+  "config_hash": "83aaa8afbe72",
+  "total_ticks": 200,
+  "total_ants": 80,
+  "food_collected_total": 79,
+  "food_per_ant": 0.9875,
+  "food_per_ant_per_step": 0.004938,
+  "avg_steps_to_food": 19.38,
+  "trips": [
+    {
+      "agent_id": 16,
+      "t_leave_nest": 1,
+      "t_find_food": 9,
+      "t_return_nest": 19,
+      "steps_to_food": 8
+    },
+    {
+      "agent_id": 13,
+      "t_leave_nest": 1,
+      "t_find_food": 10,
+      "t_return_nest": 20,
+      "steps_to_food": 9
+    },
+    {
+      "agent_id": 34,
+      "t_leave_nest": 1,
+      "t_find_food": 9,
+      "t_return_nest": 20,
+      "steps_to_food": 8
+    },
+    {
+      "agent_id": 29,
+      "t_leave_nest": 1,
+      "t_find_food": 10,
+      "t_return_nest": 22,
+      "steps_to_food": 9
+    },
+    {
+      "agent_id": 4,
+      "t_leave_nest": 1,
+      "t_find_food": 14,
+      "t_return_nest": 25,
+      "steps_to_food": 13
+    },
+    {
+      "agent_id": 57,
+      "t_leave_nest": 1,
+      "t_find_food": 15,
+      "t_return_nest": 25,
+      "steps_to_food": 14
+    },
+    {
+      "agent_id": 19,
+      "t_leave_nest": 1,
+      "t_find_food": 17,
+      "t_return_nest": 26,
+      "steps_to_food": 16
+    },
+    {
+      "agent_id": 63,
+      "t_leave_nest": 1,
+      "t_find_food": 16,
+      "t_return_nest": 26,
+      "steps_to_food": 15
+    },
+    {
+      "agent_id": 59,
+      "t_leave_nest": 1,
+      "t_find_food": 16,
+      "t_return_nest": 29,
+      "steps_to_food": 15
+    },
+    {
+      "agent_id": 67,
+      "t_leave_nest": 1,
+      "t_find_food": 11,
+      "t_return_nest": 29,
+      "steps_to_food": 10
+    },
+    {
+      "agent_id": 71,
+      "t_leave_nest": 1,
+      "t_find_food": 20,
+      "t_return_nest": 30,
+      "steps_to_food": 19
+    },
+    {
+      "agent_id": 79,
+      "t_leave_nest": 1,
+      "t_find_food": 18,
+      "t_return_nest": 30,
+      "steps_to_food": 17
+    },
+    {
+      "agent_id": 33,
+      "t_leave_nest": 1,
+      "t_find_food": 19,
+      "t_return_nest": 32,
+      "steps_to_food": 18
+    },
+    {
+      "agent_id": 55,
+      "t_leave_nest": 1,
+      "t_find_food": 22,
+      "t_return_nest": 32,
+      "steps_to_food": 21
+    },
+    {
+      "agent_id": 66,
+      "t_leave_nest": 1,
+      "t_find_food": 15,
+      "t_return_nest": 33,
+      "steps_to_food": 14
+    },
+    {
+      "agent_id": 77,
+      "t_leave_nest": 1,
+      "t_find_food": 16,
+      "t_return_nest": 33,
+      "steps_to_food": 15
+    },
+    {
+      "agent_id": 62,
+      "t_leave_nest": 1,
+      "t_find_food": 25,
+      "t_return_nest": 35,
+      "steps_to_food": 24
+    },
+    {
+      "agent_id": 54,
+      "t_leave_nest": 1,
+      "t_find_food": 22,
+      "t_return_nest": 36,
+      "steps_to_food": 21
+    },
+    {
+      "agent_id": 23,
+      "t_leave_nest": 1,
+      "t_find_food": 27,
+      "t_return_nest": 37,
+      "steps_to_food": 26
+    },
+    {
+      "agent_id": 28,
+      "t_leave_nest": 1,
+      "t_find_food": 27,
+      "t_return_nest": 37,
+      "steps_to_food": 26
+    },
+    {
+      "agent_id": 75,
+      "t_leave_nest": 1,
+      "t_find_food": 28,
+      "t_return_nest": 37,
+      "steps_to_food": 27
+    },
+    {
+      "agent_id": 2,
+      "t_leave_nest": 1,
+      "t_find_food": 28,
+      "t_return_nest": 38,
+      "steps_to_food": 27
+    },
+    {
+      "agent_id": 42,
+      "t_leave_nest": 1,
+      "t_find_food": 28,
+      "t_return_nest": 38,
+      "steps_to_food": 27
+    },
+    {
+      "agent_id": 53,
+      "t_leave_nest": 1,
+      "t_find_food": 25,
+      "t_return_nest": 38,
+      "steps_to_food": 24
+    },
+    {
+      "agent_id": 1,
+      "t_leave_nest": 1,
+      "t_find_food": 27,
+      "t_return_nest": 39,
+      "steps_to_food": 26
+    },
+    {
+      "agent_id": 17,
+      "t_leave_nest": 1,
+      "t_find_food": 29,
+      "t_return_nest": 39,
+      "steps_to_food": 28
+    },
+    {
+      "agent_id": 34,
+      "t_leave_nest": 21,
+      "t_find_food": 29,
+      "t_return_nest": 39,
+      "steps_to_food": 8
+    },
+    {
+      "agent_id": 56,
+      "t_leave_nest": 1,
+      "t_find_food": 24,
+      "t_return_nest": 39,
+      "steps_to_food": 23
+    },
+    {
+      "agent_id": 78,
+      "t_leave_nest": 1,
+      "t_find_food": 19,
+      "t_return_nest": 39,
+      "steps_to_food": 18
+    },
+    {
+      "agent_id": 0,
+      "t_leave_nest": 1,
+      "t_find_food": 30,
+      "t_return_nest": 40,
+      "steps_to_food": 29
+    },
+    {
+      "agent_id": 11,
+      "t_leave_nest": 1,
+      "t_find_food": 30,
+      "t_return_nest": 40,
+      "steps_to_food": 29
+    },
+    {
+      "agent_id": 24,
+      "t_leave_nest": 1,
+      "t_find_food": 19,
+      "t_return_nest": 40,
+      "steps_to_food": 18
+    },
+    {
+      "agent_id": 30,
+      "t_leave_nest": 1,
+      "t_find_food": 28,
+      "t_return_nest": 40,
+      "steps_to_food": 27
+    },
+    {
+      "agent_id": 40,
+      "t_leave_nest": 1,
+      "t_find_food": 28,
+      "t_return_nest": 40,
+      "steps_to_food": 27
+    },
+    {
+      "agent_id": 5,
+      "t_leave_nest": 1,
+      "t_find_food": 29,
+      "t_return_nest": 41,
+      "steps_to_food": 28
+    },
+    {
+      "agent_id": 25,
+      "t_leave_nest": 1,
+      "t_find_food": 21,
+      "t_return_nest": 41,
+      "steps_to_food": 20
+    },
+    {
+      "agent_id": 26,
+      "t_leave_nest": 1,
+      "t_find_food": 29,
+      "t_return_nest": 41,
+      "steps_to_food": 28
+    },
+    {
+      "agent_id": 32,
+      "t_leave_nest": 1,
+      "t_find_food": 27,
+      "t_return_nest": 41,
+      "steps_to_food": 26
+    },
+    {
+      "agent_id": 65,
+      "t_leave_nest": 1,
+      "t_find_food": 29,
+      "t_return_nest": 41,
+      "steps_to_food": 28
+    },
+    {
+      "agent_id": 16,
+      "t_leave_nest": 20,
+      "t_find_food": 30,
+      "t_return_nest": 42,
+      "steps_to_food": 10
+    },
+    {
+      "agent_id": 35,
+      "t_leave_nest": 1,
+      "t_find_food": 29,
+      "t_return_nest": 42,
+      "steps_to_food": 28
+    },
+    {
+      "agent_id": 60,
+      "t_leave_nest": 1,
+      "t_find_food": 30,
+      "t_return_nest": 42,
+      "steps_to_food": 29
+    },
+    {
+      "agent_id": 69,
+      "t_leave_nest": 1,
+      "t_find_food": 22,
+      "t_return_nest": 42,
+      "steps_to_food": 21
+    },
+    {
+      "agent_id": 8,
+      "t_leave_nest": 1,
+      "t_find_food": 31,
+      "t_return_nest": 43,
+      "steps_to_food": 30
+    },
+    {
+      "agent_id": 47,
+      "t_leave_nest": 1,
+      "t_find_food": 28,
+      "t_return_nest": 43,
+      "steps_to_food": 27
+    },
+    {
+      "agent_id": 64,
+      "t_leave_nest": 3,
+      "t_find_food": 32,
+      "t_return_nest": 44,
+      "steps_to_food": 29
+    },
+    {
+      "agent_id": 70,
+      "t_leave_nest": 1,
+      "t_find_food": 32,
+      "t_return_nest": 44,
+      "steps_to_food": 31
+    },
+    {
+      "agent_id": 10,
+      "t_leave_nest": 1,
+      "t_find_food": 29,
+      "t_return_nest": 45,
+      "steps_to_food": 28
+    },
+    {
+      "agent_id": 44,
+      "t_leave_nest": 23,
+      "t_find_food": 32,
+      "t_return_nest": 47,
+      "steps_to_food": 9
+    },
+    {
+      "agent_id": 48,
+      "t_leave_nest": 1,
+      "t_find_food": 35,
+      "t_return_nest": 47,
+      "steps_to_food": 34
+    },
+    {
+      "agent_id": 50,
+      "t_leave_nest": 1,
+      "t_find_food": 33,
+      "t_return_nest": 47,
+      "steps_to_food": 32
+    },
+    {
+      "agent_id": 13,
+      "t_leave_nest": 21,
+      "t_find_food": 38,
+      "t_return_nest": 48,
+      "steps_to_food": 17
+    },
+    {
+      "agent_id": 21,
+      "t_leave_nest": 1,
+      "t_find_food": 29,
+      "t_return_nest": 48,
+      "steps_to_food": 28
+    },
+    {
+      "agent_id": 37,
+      "t_leave_nest": 1,
+      "t_find_food": 31,
+      "t_return_nest": 48,
+      "steps_to_food": 30
+    },
+    {
+      "agent_id": 74,
+      "t_leave_nest": 30,
+      "t_find_food": 39,
+      "t_return_nest": 49,
+      "steps_to_food": 9
+    },
+    {
+      "agent_id": 3,
+      "t_leave_nest": 1,
+      "t_find_food": 15,
+      "t_return_nest": 52,
+      "steps_to_food": 14
+    },
+    {
+      "agent_id": 7,
+      "t_leave_nest": 1,
+      "t_find_food": 29,
+      "t_return_nest": 52,
+      "steps_to_food": 28
+    },
+    {
+      "agent_id": 4,
+      "t_leave_nest": 26,
+      "t_find_food": 43,
+      "t_return_nest": 53,
+      "steps_to_food": 17
+    },
+    {
+      "agent_id": 38,
+      "t_leave_nest": 1,
+      "t_find_food": 18,
+      "t_return_nest": 53,
+      "steps_to_food": 17
+    },
+    {
+      "agent_id": 22,
+      "t_leave_nest": 1,
+      "t_find_food": 15,
+      "t_return_nest": 54,
+      "steps_to_food": 14
+    },
+    {
+      "agent_id": 58,
+      "t_leave_nest": 1,
+      "t_find_food": 15,
+      "t_return_nest": 54,
+      "steps_to_food": 14
+    },
+    {
+      "agent_id": 57,
+      "t_leave_nest": 26,
+      "t_find_food": 37,
+      "t_return_nest": 55,
+      "steps_to_food": 11
+    },
+    {
+      "agent_id": 55,
+      "t_leave_nest": 33,
+      "t_find_food": 46,
+      "t_return_nest": 56,
+      "steps_to_food": 13
+    },
+    {
+      "agent_id": 62,
+      "t_leave_nest": 36,
+      "t_find_food": 47,
+      "t_return_nest": 57,
+      "steps_to_food": 11
+    },
+    {
+      "agent_id": 31,
+      "t_leave_nest": 32,
+      "t_find_food": 41,
+      "t_return_nest": 58,
+      "steps_to_food": 9
+    },
+    {
+      "agent_id": 79,
+      "t_leave_nest": 31,
+      "t_find_food": 42,
+      "t_return_nest": 58,
+      "steps_to_food": 11
+    },
+    {
+      "agent_id": 28,
+      "t_leave_nest": 38,
+      "t_find_food": 47,
+      "t_return_nest": 59,
+      "steps_to_food": 9
+    },
+    {
+      "agent_id": 56,
+      "t_leave_nest": 40,
+      "t_find_food": 49,
+      "t_return_nest": 59,
+      "steps_to_food": 9
+    },
+    {
+      "agent_id": 54,
+      "t_leave_nest": 37,
+      "t_find_food": 48,
+      "t_return_nest": 60,
+      "steps_to_food": 11
+    },
+    {
+      "agent_id": 76,
+      "t_leave_nest": 1,
+      "t_find_food": 14,
+      "t_return_nest": 61,
+      "steps_to_food": 13
+    },
+    {
+      "agent_id": 15,
+      "t_leave_nest": 28,
+      "t_find_food": 37,
+      "t_return_nest": 62,
+      "steps_to_food": 9
+    },
+    {
+      "agent_id": 27,
+      "t_leave_nest": 1,
+      "t_find_food": 25,
+      "t_return_nest": 62,
+      "steps_to_food": 24
+    },
+    {
+      "agent_id": 51,
+      "t_leave_nest": 1,
+      "t_find_food": 31,
+      "t_return_nest": 64,
+      "steps_to_food": 30
+    },
+    {
+      "agent_id": 6,
+      "t_leave_nest": 1,
+      "t_find_food": 27,
+      "t_return_nest": 65,
+      "steps_to_food": 26
+    },
+    {
+      "agent_id": 12,
+      "t_leave_nest": 1,
+      "t_find_food": 17,
+      "t_return_nest": 65,
+      "steps_to_food": 16
+    },
+    {
+      "agent_id": 78,
+      "t_leave_nest": 40,
+      "t_find_food": 49,
+      "t_return_nest": 75,
+      "steps_to_food": 9
+    },
+    {
+      "agent_id": 39,
+      "t_leave_nest": 1,
+      "t_find_food": 15,
+      "t_return_nest": 78,
+      "steps_to_food": 14
+    },
+    {
+      "agent_id": 53,
+      "t_leave_nest": 39,
+      "t_find_food": 48,
+      "t_return_nest": 79,
+      "steps_to_food": 9
+    },
+    {
+      "agent_id": 14,
+      "t_leave_nest": 1,
+      "t_find_food": 16,
+      "t_return_nest": 80,
+      "steps_to_food": 15
+    }
+  ],
+  "alive_ants": 79,
+  "dead_ants": 1,
+  "death_ratio": 0.0125,
+  "snapshots": [
+    {
+      "tick": 5,
+      "food_collected_total": 0,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 10,
+      "food_collected_total": 0,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 15,
+      "food_collected_total": 0,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 20,
+      "food_collected_total": 3,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 8.33
+    },
+    {
+      "tick": 25,
+      "food_collected_total": 6,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 10.17
+    },
+    {
+      "tick": 30,
+      "food_collected_total": 12,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 12.75
+    },
+    {
+      "tick": 35,
+      "food_collected_total": 17,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 14.41
+    },
+    {
+      "tick": 40,
+      "food_collected_total": 34,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.29
+    },
+    {
+      "tick": 45,
+      "food_collected_total": 48,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 21.23
+    },
+    {
+      "tick": 50,
+      "food_collected_total": 55,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 21.42
+    },
+    {
+      "tick": 55,
+      "food_collected_total": 62,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 20.85
+    },
+    {
+      "tick": 60,
+      "food_collected_total": 69,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.8
+    },
+    {
+      "tick": 65,
+      "food_collected_total": 75,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.79
+    },
+    {
+      "tick": 70,
+      "food_collected_total": 75,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.79
+    },
+    {
+      "tick": 75,
+      "food_collected_total": 76,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.64
+    },
+    {
+      "tick": 80,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 85,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 90,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 95,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 100,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 105,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 110,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 115,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 120,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 125,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 130,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 135,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 140,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 145,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 150,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 155,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 160,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 165,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 170,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 175,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 180,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 185,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 190,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 195,
+      "food_collected_total": 79,
+      "alive_count": 80,
+      "dead_count": 0,
+      "avg_steps_to_food": 19.38
+    },
+    {
+      "tick": 200,
+      "food_collected_total": 79,
+      "alive_count": 79,
+      "dead_count": 1,
+      "avg_steps_to_food": 19.38
+    }
+  ],
+  "termination_reason": "no_food_present",
+  "completed": true
+}

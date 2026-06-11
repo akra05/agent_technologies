@@ -1,0 +1,1418 @@
+{
+  "name": "current_run",
+  "config_hash": "358c61bad50f",
+  "total_ticks": 1000,
+  "total_ants": 10,
+  "food_collected_total": 0,
+  "food_per_ant": 0.0,
+  "food_per_ant_per_step": 0.0,
+  "avg_steps_to_food": 0.0,
+  "trips": [],
+  "alive_ants": 0,
+  "dead_ants": 10,
+  "death_ratio": 1.0,
+  "snapshots": [
+    {
+      "tick": 5,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 10,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 15,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 20,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 25,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 30,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 35,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 40,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 45,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 50,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 55,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 60,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 65,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 70,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 75,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 80,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 85,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 90,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 95,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 100,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 105,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 110,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 115,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 120,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 125,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 130,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 135,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 140,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 145,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 150,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 155,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 160,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 165,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 170,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 175,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 180,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 185,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 190,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 195,
+      "food_collected_total": 0,
+      "alive_count": 10,
+      "dead_count": 0,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 200,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 205,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 210,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 215,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 220,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 225,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 230,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 235,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 240,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 245,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 250,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 255,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 260,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 265,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 270,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 275,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 280,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 285,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 290,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 295,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 300,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 305,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 310,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 315,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 320,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 325,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 330,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 335,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 340,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 345,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 350,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 355,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 360,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 365,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 370,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 375,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 380,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 385,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 390,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 395,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 400,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 405,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 410,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 415,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 420,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 425,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 430,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 435,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 440,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 445,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 450,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 455,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 460,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 465,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 470,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 475,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 480,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 485,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 490,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 495,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 500,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 505,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 510,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 515,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 520,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 525,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 530,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 535,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 540,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 545,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 550,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 555,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 560,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 565,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 570,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 575,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 580,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 585,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 590,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 595,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 600,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 605,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 610,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 615,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 620,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 625,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 630,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 635,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 640,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 645,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 650,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 655,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 660,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 665,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 670,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 675,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 680,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 685,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 690,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 695,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 700,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 705,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 710,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 715,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 720,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 725,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 730,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 735,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 740,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 745,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 750,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 755,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 760,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 765,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 770,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 775,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 780,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 785,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 790,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 795,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 800,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 805,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 810,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 815,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 820,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 825,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 830,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 835,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 840,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 845,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 850,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 855,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 860,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 865,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 870,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 875,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 880,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 885,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 890,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 895,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 900,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 905,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 910,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 915,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 920,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 925,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 930,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 935,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 940,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 945,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 950,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 955,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 960,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 965,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 970,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 975,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 980,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 985,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 990,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 995,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    },
+    {
+      "tick": 1000,
+      "food_collected_total": 0,
+      "alive_count": 0,
+      "dead_count": 10,
+      "avg_steps_to_food": 0.0
+    }
+  ],
+  "termination_reason": "max_ticks",
+  "completed": true
+}
