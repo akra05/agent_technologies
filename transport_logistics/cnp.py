@@ -4,6 +4,21 @@ import queue
 
 NUMBER_OF_THREADS = 10
 
+"""
+information(Initiator): 
+{
+position: (3,3) Tupel
+resource_type: ['A','A','B'] list
+world_size: 10 int
+}
+"""
+"""
+content_dict(Message):
+{
+position(Sender)
+requested_items/available_items(Sender)
+}
+"""
 @dataclass(frozen=True)
 class Message:
     msg_type: str   # 'CFP', 'PROPOSE', 'REFUSE', 'REJECT', 'ACCEPT'
@@ -17,11 +32,14 @@ class Initiator:
         self.participants = participants
 
     def run(self):
+        self.constraint_function()
         for i in self.participants:
             msg = Message('CFP', self, self.information)
             i.msg_queue.put(msg)
         return
-
+    
+    
+        
 class Participant:
     def __init__(self,information):
         self.msg_queue = queue.Queue()
@@ -30,11 +48,17 @@ class Participant:
     def run(self):
         while True:
             msg = self.msg_queue.get()
-            print(msg)
+            
             break
         return
 
-
+def constraint_function(participant,msg):
+        
+        if not (participant.information['position'][0] >= 0 and participant.information['position'][0] <= msg.information['world_size'] and self.information['position'][1] >= 0 and self.information['position'][1] <= msg.information['world_size']):
+            return False # if Participant is outside the world return False which continues in a 'REFUSE' message
+        if not msg.information['item'] in participant.information['items']:
+            return False # if Participant doesn't have the needed item return False which continues in a 'REFUSE' message
+        return True
 
 def main():
 
@@ -43,12 +67,12 @@ def main():
     
 
     for i in range(NUMBER_OF_THREADS):
-        participant = Participant({"position":(4,4),"thread_id":i})
+        participant = Participant({"position":(4,4),"items":['A','A','B'],"thread_id":i})
         participants.append(participant)
         t = threading.Thread(target=participant.run)
         threads.append(t)
     
-    initiator = Initiator({"position":(3,3)},participants)
+    initiator = Initiator({"position":(3,3), "items":['A','A','B'],"world_size":10},participants)
     t = threading.Thread(target=initiator.run)
     threads.append(t)
 
