@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import threading 
 import queue
 
-NUMBER_OF_THREADS = 10
+NUMBER_OF_THREADS = 1
 
 """
 information(Initiator): 
@@ -17,13 +17,14 @@ content_dict(Message):
 {
 position(Sender)
 requested_items/available_items(Sender)
+evaluation
 }
 """
 @dataclass(frozen=True)
 class Message:
     msg_type: str   # 'CFP', 'PROPOSE', 'REFUSE', 'REJECT', 'ACCEPT'
     sender: object
-    content: dict   # which resource is asked for and general task informations
+    information: dict   # which resource is asked for and general task informations
 
 class Initiator:
     def __init__(self,information,participants):
@@ -32,10 +33,15 @@ class Initiator:
         self.participants = participants
 
     def run(self):
-        self.constraint_function()
+        
         for i in self.participants:
             msg = Message('CFP', self, self.information)
             i.msg_queue.put(msg)
+
+        while True:
+            msg = self.msg_queue.get()
+            print(msg)
+            break
         return
     
     
@@ -48,17 +54,29 @@ class Participant:
     def run(self):
         while True:
             msg = self.msg_queue.get()
-            
+            if msg.msg_type == 'CFP':
+
+                if self.constraint_function(msg):
+                    return_msg = Message('PROPOSE',self,{'value':self.evaluation_function(msg)})
+                    msg.sender.msg_queue.put(return_msg)
+                else:
+                    return_msg = Message('REFUSE',self,{})
+                    msg.sender.msg_queue.put(return_msg)
+                     
+
             break
         return
-
-def constraint_function(participant,msg):
+    
+    def constraint_function(self,msg):
         
-        if not (participant.information['position'][0] >= 0 and participant.information['position'][0] <= msg.information['world_size'] and self.information['position'][1] >= 0 and self.information['position'][1] <= msg.information['world_size']):
+        if not (self.information['position'][0] >= 0 and self.information['position'][0] <= msg.information['world_size'] and self.information['position'][1] >= 0 and self.information['position'][1] <= msg.information['world_size']):
             return False # if Participant is outside the world return False which continues in a 'REFUSE' message
-        if not msg.information['item'] in participant.information['items']:
+        if not msg.information['needed_item'] in self.information['items']:
             return False # if Participant doesn't have the needed item return False which continues in a 'REFUSE' message
         return True
+    
+    def evaluation_function(self,msg):
+        return ((abs(self.information['position'][0]-msg.information['position'][0]))**2+(abs(self.information['position'][1]-msg.information['position'][1]))**2)**0.5
 
 def main():
 
@@ -72,7 +90,7 @@ def main():
         t = threading.Thread(target=participant.run)
         threads.append(t)
     
-    initiator = Initiator({"position":(3,3), "items":['A','A','B'],"world_size":10},participants)
+    initiator = Initiator({"position":(4,3), "needed_item":'C',"world_size":10},participants)
     t = threading.Thread(target=initiator.run)
     threads.append(t)
 
