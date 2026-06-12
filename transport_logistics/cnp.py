@@ -18,7 +18,8 @@ class Initiator:
 
     def run(self):
         for i in self.participants:
-            i.msg_queue.put(f"Hi are you reading: {i.information}")
+            msg = Message('CFP', self, self.information)
+            i.msg_queue.put(msg)
         return
 
 class Participant:
