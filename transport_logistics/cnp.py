@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import threading 
 import queue
 
-NUMBER_OF_THREADS = 1
+NUMBER_OF_THREADS = 10
 
 """
 information(Initiator): 
@@ -38,10 +38,37 @@ class Initiator:
             msg = Message('CFP', self, self.information)
             i.msg_queue.put(msg)
 
+        proposals = []
+        msg_counter = 0
+
         while True:
             msg = self.msg_queue.get()
-            print(msg)
-            break
+            
+            msg_counter += 1
+
+            if msg.msg_type == 'PROPOSE':
+                proposals.append(msg)
+            
+            if msg_counter == len(self.participants):
+                break
+        
+        if not proposals:
+            print("Kein Participant konnte die Aufgabe übernehmen!")
+            return
+
+        sorted_proposals = sorted(proposals, key=lambda msg: msg.information['value'])
+        winner = sorted_proposals[0]
+
+        msg = Message('ACCEPT',self,self.information)
+        winner.sender.msg_queue.put(msg)
+
+        for proposal in sorted_proposals[1:]:  # alles außer winner
+            msg = Message('REJECT', self, self.information)
+            proposal.sender.msg_queue.put(msg)
+
+
+                
+
         return
     
     
@@ -62,10 +89,17 @@ class Participant:
                 else:
                     return_msg = Message('REFUSE',self,{})
                     msg.sender.msg_queue.put(return_msg)
-                     
-
-            break
-        return
+                    break
+                
+            if msg.msg_type == 'ACCEPT':
+                print("Gewonnen!")
+                self.information['items'].remove(msg.information['needed_item'])
+                print(self.information)
+                break  # jetzt fertig
+            
+            if msg.msg_type == 'REJECT':
+                print("Verloren!")
+                break  # jetzt fertig     
     
     def constraint_function(self,msg):
         
@@ -90,7 +124,7 @@ def main():
         t = threading.Thread(target=participant.run)
         threads.append(t)
     
-    initiator = Initiator({"position":(4,3), "needed_item":'C',"world_size":10},participants)
+    initiator = Initiator({"position":(4,3), "needed_item":'A',"world_size":10},participants)
     t = threading.Thread(target=initiator.run)
     threads.append(t)
 
