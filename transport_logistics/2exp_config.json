@@ -1,0 +1,14 @@
+{
+    "world_size": 10,
+    "warehouses": [
+        {"id": "LA1", "position": [1, 1], "items": ["A", "B", "C"]},
+        {"id": "LA2", "position": [9, 9], "items": ["A", "B", "C"]},
+        {"id": "LA3", "position": [1, 9], "items": ["A", "B", "C"]}
+    ],
+    "factories": [
+        {"id": "TA1", "position": [1, 5], "requested_items": ["A", "B", "C"]},
+        {"id": "TA2", "position": [9, 5], "requested_items": ["A", "B", "C"]},
+        {"id": "TA3", "position": [5, 1], "requested_items": ["A", "B", "C"]},
+        {"id": "TA4", "position": [5, 9], "requested_items": ["A", "B", "C"]}
+    ]
+}

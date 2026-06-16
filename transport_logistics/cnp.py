@@ -66,9 +66,6 @@ class Initiator:
             msg = Message('REJECT', self, self.information)
             proposal.sender.msg_queue.put(msg)
 
-
-                
-
         return
     
     
